@@ -69,7 +69,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="outline-none">
-                    <div className="gradient flex h-10 w-10 items-center justify-center rounded-full text-lg font-medium text-white">
+                    <div className="bg-brand-yellow flex h-10 w-10 items-center justify-center rounded-full text-lg font-medium text-black">
                       {user.email.charAt(0).toUpperCase()}
                     </div>
                   </button>
