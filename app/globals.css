@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Custom styles & variables for ClipCast */
+@theme inline {
+  --font-poppins: var(--font-poppins), sans-serif;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1200px;
+  --color-brand-yellow: #facc15;
+  --color-brand-yellow-electric: #fef08a;
+  --color-brand-yellow-canary: #ffff8f;
+  --color-brand-yellow-primary: oklch(90.5% 0.182 98.111);
+}
+
+@theme {
+
+}
+
+/* Global styles */
+@layer components {
+  /* Add any global component styles here */
+  .gradient {
+    @apply bg-linear-to-r from-purple-600 to-pink-400;
+  }
+}
+
+* {
+  font-family: var(--font-poppins);
+}

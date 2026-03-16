@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   Design Tokens (Vercel)
+   ========================= */
+:root {
+  --color-bg: 0 0 0;
+  --color-text: 255 255 255;
+  --color-muted: 161 161 170;
+}
+
+/* Light mode */
+[data-theme='light'] {
+  --color-bg: 255 255 255;
+  --color-text: 0 0 0;
+  --color-muted: 82 82 91;
+}
+
+/* =========================
+   Base Styles
+   ========================= */
+@layer base {
+  html {
+    background-color: rgb(var(--color-bg));
+    color: rgb(var(--color-text));
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+/* =========================
+   Motion + UI Utilities
+   ========================= */
+@layer utilities {
+  /* Fade-up animation */
+  .fade-up {
+    animation: fade-up 0.8s ease-out both;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .delay-1 {
+    animation-delay: 0.1s;
+  }
+  .delay-2 {
+    animation-delay: 0.2s;
+  }
+  .delay-3 {
+    animation-delay: 0.3s;
+  }
+
+  /* Vercel text gradient */
+  .text-gradient {
+    background: linear-gradient(to right, #fff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Card */
+  .vercel-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .vercel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+}
