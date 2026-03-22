@@ -8,11 +8,6 @@ import LiveLeaderboard from '@/components/layout/StatsCard';
 import ContestantManager from '@/components/layout/ContestManager';
 import CodeManager from '@/components/layout/CodeManager';
 
-// Sub-components we'll build next
-// import ContestantList from './components/ContestantList';
-// import CodeManager from './components/CodeManager';
-// import LiveLeaderboard from './components/LiveLeaderboard';
-
 export default function PollDashboard() {
   const { slug } = useParams(); // Gets the ID from the URL
   const { allPolls, loading } = useApp();

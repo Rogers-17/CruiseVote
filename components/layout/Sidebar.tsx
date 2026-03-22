@@ -22,6 +22,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
   const PrimarySideBarItems: SideBarItemTypes[] = [
     { id: 1, name: 'Home', path: '/home', icon: <HomeIcon /> },
     { id: 2, name: 'Polls', path: '/home/polls', icon: <Vote /> },
+    { id: 4, name: 'Vote', path: '/home/vote', icon: <Vote /> },
     {
       id: 3,
       name: 'Create Poll',

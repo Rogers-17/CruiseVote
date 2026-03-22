@@ -143,8 +143,97 @@ export async function getDeviceVoteCount({ fingerprint, pollId}: DeviceVotesCoun
   return count ?? 0;
 }
 
+// utils/supabase/db.ts
+
+export const castVote = async (pollId: string, contestantId: string, codeValue: string) => {
+  // 1. Use .ilike for case-insensitive matching
+  const { data: codeData, error: codeError } = await supabase
+    .from('vote_codes')
+    .select('id, is_used, poll_id')
+    .ilike('code', codeValue.trim()) // This matches StarzCruisezbnnr even if they type starzcruisezbnnr
+    .single();
+
+  // DEBUG: If it's still failing, check the console
+  if (codeError) {
+    console.error("Supabase Error:", codeError.message);
+    throw new Error("Invalid voting code.");
+  }
+
+  if (codeData.is_used) {
+    throw new Error("This code has already been used.");
+  }
+
+  // 2. Extra Safety: Ensure the code belongs to the current poll
+  if (codeData.poll_id !== pollId) {
+    throw new Error("This code is for a different contest.");
+  }
+
+  // 3. Proceed with the vote insert as before
+  const fingerprint = window.navigator.userAgent;
+  const { error: insertError } = await supabase
+    .from('votes')
+    .insert({
+      poll_id: pollId,
+      contestant_id: contestantId,
+      vote_code_id: codeData.id,
+      device_fingerprint: fingerprint 
+    });
+
+  if (insertError) throw new Error(insertError.message);
+
+  return { success: true };
+};
+
+const getFingerprint = () => {
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl');
+  // A quick way to get unique hardware info
+  const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+  const renderer = gl?.getParameter(debugInfo?.UNMASKED_RENDERER_WEBGL || 0);
+  return `${renderer}-${window.screen.width}x${window.screen.height}`;
+};
+
 // export async function getFingerprint(): Promise<string> {
 //   const fp = await FingerprintJS.load();
 //   const result = await fp.get();
 //   return result.visitorId;
 // }
+
+
+// // utils/supabase/db.ts
+
+// export const castVote = async (pollId: string, contestantId: string, codeValue: string) => {
+//   // 1. Check if the code exists, belongs to this poll, and isn't used
+//   const { data: codeData, error: codeError } = await supabase
+//     .from('vote_codes')
+//     .select('*')
+//     .eq('code', codeValue)
+//     .eq('poll_id', pollId)
+//     .eq('is_used', false)
+//     .single();
+
+//   if (codeError || !codeData) {
+//     throw new Error("Invalid or already used voting code.");
+//   }
+
+//   // 2. Mark code as used and link to the contestant (for auditing)
+//   const { error: updateError } = await supabase
+//     .from('vote_codes')
+//     .update({ 
+//       is_used: true, 
+//       used_at: new Date().toISOString(),
+//       contestant_id: contestantId 
+//     })
+//     .eq('id', codeData.id);
+
+//   if (updateError) throw updateError;
+
+//   // 3. Increment the girl's vote count
+//   const { error: voteError } = await supabase.rpc('increment_vote', { 
+//     con_id: contestantId 
+//   });
+
+//   if (voteError) throw voteError;
+
+//   return { success: true };
+// };

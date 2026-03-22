@@ -15,7 +15,7 @@ export const QK = {
 interface AppContextVal {
     activePoll: any;
     allPolls: any; 
-    contestants: GetContestant[];
+    contestants: any[];
     retry: () => void;
     loading: boolean;
     addContestant: (data: ContestantPayload & { poll_id: string }) => Promise<void>;
