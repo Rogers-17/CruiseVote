@@ -1,4 +1,4 @@
-import { Timestamp } from "next/dist/server/lib/cache-handlers/types";
+import { Timestamp } from 'next/dist/server/lib/cache-handlers/types';
 
 export interface ContestantPayload {
   name: string;
@@ -33,7 +33,7 @@ export interface DeviceVotesCount {
   pollId: string;
 }
 
-export interface GetContestant{
+export interface GetContestant {
   id: string;
   poll_id: string;
   name: string;
@@ -44,7 +44,7 @@ export interface GetContestant{
   created_at: Timestamp;
 }
 
-export interface GenerateCodesPayload{
+export interface GenerateCodesPayload {
   pollId: string;
   prefix: string;
   count: number;

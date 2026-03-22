@@ -12,7 +12,7 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) return alert("Select a photo first!");
+    if (!file) return alert('Select a photo first!');
 
     setLoading(true);
     try {
@@ -28,18 +28,18 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
       if (uploadError) throw uploadError;
 
       // 2. Get Public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('Contestants')
-        .getPublicUrl(filePath);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from('Contestants').getPublicUrl(filePath);
 
       // 3. Save to DB
       await db.createContestant({
         ...form,
         photo_url: publicUrl,
-        poll_id: pollId
+        poll_id: pollId,
       });
 
-      alert("Contestant Added Successfully!");
+      alert('Contestant Added Successfully!');
       setForm({ name: '', department: '', bio: '' });
       setFile(null);
     } catch (err: any) {
@@ -51,46 +51,66 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-      <form onSubmit={handleUpload} className="space-y-4 bg-white/5 p-6 rounded-2xl border border-white/10">
-        <h3 className="text-brand-yellow font-black uppercase tracking-tighter italic">Add New Girl</h3>
-        
-        <div className="flex items-center justify-center w-full">
-          <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/20 rounded-xl cursor-pointer hover:bg-white/5 transition">
+    <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
+      <form
+        onSubmit={handleUpload}
+        className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-6"
+      >
+        <h3 className="text-brand-yellow font-black tracking-tighter uppercase italic">
+          Add New Girl
+        </h3>
+
+        <div className="flex w-full items-center justify-center">
+          <label className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-white/20 transition hover:bg-white/5">
             {file ? (
-              <span className="text-[--color-brand-yellow] font-bold text-sm">{file.name}</span>
+              <span className="text-sm font-bold text-[--color-brand-yellow]">
+                {file.name}
+              </span>
             ) : (
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <Camera className="w-8 h-8 text-gray-500 mb-2" />
-                <p className="text-xs text-gray-500 font-bold uppercase">Tap to upload photo</p>
+                <Camera className="mb-2 h-8 w-8 text-gray-500" />
+                <p className="text-xs font-bold text-gray-500 uppercase">
+                  Tap to upload photo
+                </p>
               </div>
             )}
-            <input type="file" className="hidden" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] || null)} />
+            <input
+              type="file"
+              className="hidden"
+              accept="image/*"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+            />
           </label>
         </div>
 
-        <input 
-          placeholder="Full Name" 
+        <input
+          placeholder="Full Name"
           required
-          className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm focus:border-[--color-brand-yellow] outline-none transition"
+          className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm transition outline-none focus:border-[--color-brand-yellow]"
           value={form.name}
-          onChange={e => setForm({...form, name: e.target.value})}
-        />
-        
-        <input 
-          placeholder="Department (e.g. IT, Business)" 
-          required
-          className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm focus:border-[--color-brand-yellow] outline-none transition"
-          value={form.department}
-          onChange={e => setForm({...form, department: e.target.value})}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
 
-        <button 
+        <input
+          placeholder="Department (e.g. IT, Business)"
+          required
+          className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm transition outline-none focus:border-[--color-brand-yellow]"
+          value={form.department}
+          onChange={(e) => setForm({ ...form, department: e.target.value })}
+        />
+
+        <button
           disabled={loading}
           type="submit"
-          className="w-full bg-brand-yellow text-black font-black py-4 rounded-xl uppercase tracking-widest flex items-center justify-center gap-2 hover:scale-[0.98] transition active:scale-95"
+          className="bg-brand-yellow flex w-full items-center justify-center gap-2 rounded-xl py-4 font-black tracking-widest text-black uppercase transition hover:scale-[0.98] active:scale-95"
         >
-          {loading ? <Loader2 className="animate-spin" /> : <><Plus size={18}/> Add to Poll</>}
+          {loading ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <>
+              <Plus size={18} /> Add to Poll
+            </>
+          )}
         </button>
       </form>
     </div>

@@ -1,140 +1,171 @@
-'use client'
+'use client';
 
 import { ContestantPayload, GetContestant } from '@/lib/type';
-import * as db from '@/utils/supabase/db'
+import * as db from '@/utils/supabase/db';
+import { supabase } from '@/utils/supabase/client'; // Ensure this is imported
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import * as React from 'react'
+import * as React from 'react';
 
 export const QK = {
-    health: ["health"] as const,
-    votes: ["votes"] as const,
-    activePoll: ["activePoll"] as const,
-    contestants: ["contestants"] as const, 
-}
+  health: ['health'] as const,
+  votes: ['votes'] as const,
+  activePoll: ['activePoll'] as const,
+  contestants: ['contestants'] as const,
+};
 
 interface AppContextVal {
-    activePoll: any;
-    allPolls: any; 
-    contestants: any[];
-    retry: () => void;
-    loading: boolean;
-    addContestant: (data: ContestantPayload & { poll_id: string }) => Promise<void>;
-    generateCodes: (prefix: string, count: number) => Promise<void>;
-    
+  activePoll: any;
+  allPolls: any;
+  contestants: any[];
+  retry: () => void;
+  loading: boolean;
+  addContestant: (
+    data: ContestantPayload & { poll_id: string },
+  ) => Promise<void>;
+  generateCodes: (prefix: string, count: number) => Promise<void>;
 }
 
 const AppContext = React.createContext<AppContextVal | null>(null);
 
-export function AppProvider({ children }: { children: React.ReactNode}) {
-    const qc = useQueryClient();
+export function AppProvider({ children }: { children: React.ReactNode }) {
+  const qc = useQueryClient();
 
-    // ------------- Queries ---------------
-    const healthQ = useQuery({
-        queryKey: QK.health,
-        queryFn: () => db.healthCheck(), // Now returns "ok"
-        retry: 1,
-        staleTime: 30_000,
-    })
-
-    // Update activePollQ to ensure it returns data or null, never undefined
-    const activePollQ = useQuery({
-        queryKey: QK.activePoll,
-        queryFn: async () => {
-            const result = await db.getActivePoll();
-            return result.data ?? null; // Ensure null if no active poll
+  // ------------- Real-Time Listener ----------------
+  // This listens for any changes in the DB and refreshes your TanStack cache
+  React.useEffect(() => {
+    const channel = supabase
+      .channel('voting-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // Listen for inserts (votes) and updates (contestant counts)
+          schema: 'public',
+          table: 'contestants',
         },
-        enabled: !!healthQ.data, // Only run if health check passed
-    })
-
-    // Update votesQ similarly
-    const votesQ = useQuery({
-        queryKey: QK.votes,
-        queryFn: async () => {
-            const data = await db.getVotes();
-            return data ?? []; // Ensure empty array if no votes
+        () => {
+          // When a contestant's vote_count changes, refetch the list
+          qc.invalidateQueries({ queryKey: QK.contestants });
         },
-        enabled: !!healthQ.data
-    })
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'votes',
+        },
+        () => {
+          // When a new vote record is added, refresh the votes list
+          qc.invalidateQueries({ queryKey: QK.votes });
+        },
+      )
+      .subscribe();
 
-    const activePollId = activePollQ.data?.data?.id;
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [qc]);
 
-    const allPollsQ = useQuery({
-        queryKey: ["allPolls"],
-        queryFn: db.getAllPolls,
-        enabled: healthQ.isSuccess
-    });
+  // ------------- Queries ---------------
+  const healthQ = useQuery({
+    queryKey: QK.health,
+    queryFn: () => db.healthCheck(),
+    retry: 1,
+    staleTime: 30_000,
+  });
 
-    console.log("All Polls Data:", allPollsQ.data); // Debug log for all polls
+  const activePollQ = useQuery({
+    queryKey: QK.activePoll,
+    queryFn: async () => {
+      const result = await db.getActivePoll();
+      return result.data ?? null;
+    },
+    enabled: !!healthQ.data,
+  });
 
-// // Add this to your return value
-// const allPolls = allPollsQ.data ?? [];
+  const votesQ = useQuery({
+    queryKey: QK.votes,
+    queryFn: async () => {
+      const data = await db.getVotes();
+      return data ?? [];
+    },
+    enabled: !!healthQ.data,
+  });
 
-    const contestantsQ = useQuery({
-        queryKey: QK.contestants,
-        queryFn: () => db.getContestants(),
-        enabled: healthQ.isSuccess
-    })
+  const activePollId = activePollQ.data?.id; // Fixed access path based on your context return
 
-    // ----------- Invalidation Helper (Preserved) -----------
-    const invalidateAll = React.useCallback(() => {
-        qc.invalidateQueries({ queryKey: QK.health})
-        qc.invalidateQueries({ queryKey: QK.votes})
-        qc.invalidateQueries({ queryKey: QK.activePoll})
-    },[qc]);
+  const allPollsQ = useQuery({
+    queryKey: ['allPolls'],
+    queryFn: db.getAllPolls,
+    enabled: healthQ.isSuccess,
+  });
 
-    const retry = React.useCallback(() => {
-        qc.invalidateQueries({ queryKey: QK.health });
-        invalidateAll();
-    }, [qc, invalidateAll]);
+  const contestantsQ = useQuery({
+    queryKey: QK.contestants,
+    queryFn: () => db.getContestants(),
+    enabled: healthQ.isSuccess,
+  });
 
-    // ---------- Mutations (Preserved & Added) --------------
+  // ----------- Invalidation Helpers -----------
+  const invalidateAll = React.useCallback(() => {
+    qc.invalidateQueries({ queryKey: QK.health });
+    qc.invalidateQueries({ queryKey: QK.votes });
+    qc.invalidateQueries({ queryKey: QK.activePoll });
+    qc.invalidateQueries({ queryKey: QK.contestants });
+  }, [qc]);
 
-    const createContestantMut = useMutation({
-        mutationFn: db.createContestant,
-        onSuccess: () => qc.invalidateQueries({ queryKey: QK.contestants }),
-    });
+  const retry = React.useCallback(() => {
+    qc.invalidateQueries({ queryKey: QK.health });
+    invalidateAll();
+  }, [qc, invalidateAll]);
 
-    const generateCodesMut = useMutation({
-        mutationFn: ({ prefix, count }: { prefix: string, count: number }) => 
-            db.generateFormattedCodes(activePollId, prefix, count),
-        onSuccess: () => invalidateAll(),
-    });
+  // ---------- Mutations --------------
+  const createContestantMut = useMutation({
+    mutationFn: db.createContestant,
+    onSuccess: () => qc.invalidateQueries({ queryKey: QK.contestants }),
+  });
 
-    // -------- Derived States (Preserved) ------------
-    const votes = votesQ.data ?? [];
-    const contestants = contestantsQ.data ?? [];
+  const generateCodesMut = useMutation({
+    mutationFn: ({ prefix, count }: { prefix: string; count: number }) =>
+      db.generateFormattedCodes(activePollId, prefix, count),
+    onSuccess: () => invalidateAll(),
+  });
 
-    const loading = healthQ.isPending || activePollQ.isPending || votesQ.isPending;
+  // -------- Derived States ------------
+  const votes = votesQ.data ?? [];
+  const contestants = contestantsQ.data ?? [];
+  const loading =
+    healthQ.isPending ||
+    activePollQ.isPending ||
+    votesQ.isPending ||
+    contestantsQ.isPending;
 
-    const firstError = healthQ.error ?? activePollQ.error ?? votesQ.error ?? null;
+  // ── Async wrappers ──────
+  const addContestant = (data: ContestantPayload & { poll_id: string }) =>
+    createContestantMut.mutateAsync(data).then(() => {});
 
-    const error = firstError ? (firstError as Error).message ?? "Unknown error" : null;
+  const generateCodes = (prefix: string, count: number) =>
+    generateCodesMut.mutateAsync({ prefix, count });
 
-    // ── Async wrappers ──────
-    const addContestant = (data: ContestantPayload & { poll_id: string }) => 
-        createContestantMut.mutateAsync(data).then(() => {});
-
-    const generateCodes = (prefix: string, count: number) => 
-        generateCodesMut.mutateAsync({ prefix, count });
-
-    return (
-        <AppContext.Provider
-            value={{
-                activePoll: activePollQ.data?.data,
-                contestants,
-                retry,
-                addContestant,
-                generateCodes,
-                loading,
-                allPolls: allPollsQ.data ?? [], // Added to context value
-            }}>
-            {children}
-        </AppContext.Provider>
-    )
+  return (
+    <AppContext.Provider
+      value={{
+        activePoll: activePollQ.data,
+        contestants,
+        retry,
+        addContestant,
+        generateCodes,
+        loading,
+        allPolls: allPollsQ.data ?? [],
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export function useApp(): AppContextVal {
   const ctx = React.useContext(AppContext);
-  if (!ctx) throw new Error("useApp must be used inside <AppProvider>");
+  if (!ctx) throw new Error('useApp must be used inside <AppProvider>');
   return ctx;
 }

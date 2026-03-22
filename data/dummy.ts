@@ -1,24 +1,8 @@
-created_at
-: 
-"2026-03-19T01:13:32.520741+00:00"
-description
-: 
-null
-end_date
-: 
-"2026-03-19T01:15:00+00:00"
-id
-: 
-"332155a0-1ce1-46a1-88f4-71fe7a7c0d57"
-is_active
-: 
-true
-slug
-: 
-"face-of-starz-cruise-2026"
-start_date
-: 
-"2026-03-19T01:13:00+00:00"
-title
-: 
-"Face of Starz Cruise 2026"
+created_at: '2026-03-19T01:13:32.520741+00:00';
+description: null;
+end_date: '2026-03-19T01:15:00+00:00';
+id: '332155a0-1ce1-46a1-88f4-71fe7a7c0d57';
+is_active: true;
+slug: 'face-of-starz-cruise-2026';
+start_date: '2026-03-19T01:13:00+00:00';
+title: 'Face of Starz Cruise 2026';

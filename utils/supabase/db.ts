@@ -1,17 +1,20 @@
-import { ContestantPayload, DeviceVotesCount, GetContestant, UpdateContestPayload, Votes } from '@/lib/type';
+import {
+  ContestantPayload,
+  DeviceVotesCount,
+  GetContestant,
+  UpdateContestPayload,
+  Votes,
+} from '@/lib/type';
 import { supabase } from './client';
 // import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
 // --- PRESERVED ORIGINAL FUNCTIONS ---
 
 export async function healthCheck(): Promise<string> {
-  const { error } = await supabase
-    .from('contestants')
-    .select('id')
-    .limit(1);
-  
+  const { error } = await supabase.from('contestants').select('id').limit(1);
+
   if (error) throw new Error(error.message);
-  return "ok";
+  return 'ok';
 }
 
 export async function getVotes(): Promise<Votes[]> {
@@ -77,20 +80,24 @@ export async function getAllPolls() {
   return data;
 }
 
-getAllPolls
+getAllPolls;
 
 /**
  * Custom Code Generator
  * Logic: StarzCruise-abd78 format
  */
-export async function generateFormattedCodes(pollId: string, prefix: string, count: number) {
+export async function generateFormattedCodes(
+  pollId: string,
+  prefix: string,
+  count: number,
+) {
   const codes = [];
   for (let i = 0; i < count; i++) {
     const suffix = Math.random().toString(36).substring(2, 7);
     codes.push({
       poll_id: pollId,
       code: `${prefix}${suffix}`,
-      status: 'available'
+      status: 'available',
     });
   }
   const { error } = await supabase.from('vote_codes').insert(codes);
@@ -125,15 +132,20 @@ export async function exportCodesAsCSV(pollId: string) {
     .select('code, status, used_at')
     .eq('poll_id', pollId);
   if (error) throw new Error('Failed to fetch codes');
-  
+
   const header = 'code,status,used_at';
-  const rows = data.map((row: any) => `${row.code},${row.status},${row.used_at || ''}`);
+  const rows = data.map(
+    (row: any) => `${row.code},${row.status},${row.used_at || ''}`,
+  );
   return [header, ...rows].join('\n');
 }
 
 // --- PRESERVED FINGERPRINT & DEVICE HELPERS ---
 
-export async function getDeviceVoteCount({ fingerprint, pollId}: DeviceVotesCount) {
+export async function getDeviceVoteCount({
+  fingerprint,
+  pollId,
+}: DeviceVotesCount) {
   const { count, error } = await supabase
     .from('votes')
     .select('*', { count: 'exact', head: true })
@@ -145,7 +157,11 @@ export async function getDeviceVoteCount({ fingerprint, pollId}: DeviceVotesCoun
 
 // utils/supabase/db.ts
 
-export const castVote = async (pollId: string, contestantId: string, codeValue: string) => {
+export const castVote = async (
+  pollId: string,
+  contestantId: string,
+  codeValue: string,
+) => {
   // 1. Use .ilike for case-insensitive matching
   const { data: codeData, error: codeError } = await supabase
     .from('vote_codes')
@@ -155,29 +171,27 @@ export const castVote = async (pollId: string, contestantId: string, codeValue: 
 
   // DEBUG: If it's still failing, check the console
   if (codeError) {
-    console.error("Supabase Error:", codeError.message);
-    throw new Error("Invalid voting code.");
+    console.error('Supabase Error:', codeError.message);
+    throw new Error('Invalid voting code.');
   }
 
   if (codeData.is_used) {
-    throw new Error("This code has already been used.");
+    throw new Error('This code has already been used.');
   }
 
   // 2. Extra Safety: Ensure the code belongs to the current poll
   if (codeData.poll_id !== pollId) {
-    throw new Error("This code is for a different contest.");
+    throw new Error('This code is for a different contest.');
   }
 
   // 3. Proceed with the vote insert as before
   const fingerprint = window.navigator.userAgent;
-  const { error: insertError } = await supabase
-    .from('votes')
-    .insert({
-      poll_id: pollId,
-      contestant_id: contestantId,
-      vote_code_id: codeData.id,
-      device_fingerprint: fingerprint 
-    });
+  const { error: insertError } = await supabase.from('votes').insert({
+    poll_id: pollId,
+    contestant_id: contestantId,
+    vote_code_id: codeData.id,
+    device_fingerprint: fingerprint,
+  });
 
   if (insertError) throw new Error(insertError.message);
 
@@ -199,7 +213,6 @@ const getFingerprint = () => {
 //   return result.visitorId;
 // }
 
-
 // // utils/supabase/db.ts
 
 // export const castVote = async (pollId: string, contestantId: string, codeValue: string) => {
@@ -219,18 +232,18 @@ const getFingerprint = () => {
 //   // 2. Mark code as used and link to the contestant (for auditing)
 //   const { error: updateError } = await supabase
 //     .from('vote_codes')
-//     .update({ 
-//       is_used: true, 
+//     .update({
+//       is_used: true,
 //       used_at: new Date().toISOString(),
-//       contestant_id: contestantId 
+//       contestant_id: contestantId
 //     })
 //     .eq('id', codeData.id);
 
 //   if (updateError) throw updateError;
 
 //   // 3. Increment the girl's vote count
-//   const { error: voteError } = await supabase.rpc('increment_vote', { 
-//     con_id: contestantId 
+//   const { error: voteError } = await supabase.rpc('increment_vote', {
+//     con_id: contestantId
 //   });
 
 //   if (voteError) throw voteError;

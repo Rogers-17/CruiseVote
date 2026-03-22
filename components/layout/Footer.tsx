@@ -75,25 +75,26 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-4 flex items-center gap-2">
-              <span className="text-xl font-black uppercase tracking-tighter text-brand-yellow md:text-3xl">
+              <span className="text-brand-yellow text-xl font-black tracking-tighter uppercase md:text-3xl">
                 STARZ CRUISE
               </span>
             </div>
             <p className="mb-6 text-sm leading-relaxed">
-              Celebrating excellence and talent at Starz University. Join the journey to crown the next Face of Starz Cruise.
+              Celebrating excellence and talent at Starz University. Join the
+              journey to crown the next Face of Starz Cruise.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+              <div className="hover:text-brand-yellow flex items-center gap-3 text-sm transition-colors">
                 <Mail className="h-4 w-4 text-[--color-brand-yellow]" />
                 <span>support@starzcruise.com</span>
               </div>
-              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+              <div className="hover:text-brand-yellow flex items-center gap-3 text-sm transition-colors">
                 <Phone className="h-4 w-4 text-[--color-brand-yellow]" />
                 <span>+231 (000) STARZ-VOTE</span>
               </div>
-              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+              <div className="hover:text-brand-yellow flex items-center gap-3 text-sm transition-colors">
                 <MapPin className="h-4 w-4 text-[--color-brand-yellow]" />
                 <span>Monrovia, Liberia</span>
               </div>
@@ -137,7 +138,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="flex-1 rounded-xl border border-white/10 bg-black px-4 py-3 text-sm transition-colors focus:border-[--color-brand-yellow] focus:outline-none"
               />
-              <button className="rounded-xl bg-brand-yellow px-6 py-3 font-black text-black uppercase transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg shadow-yellow-500/10">
+              <button className="bg-brand-yellow rounded-xl px-6 py-3 font-black text-black uppercase shadow-lg shadow-yellow-500/10 transition-all duration-200 hover:scale-[1.02] active:scale-95">
                 Subscribe
               </button>
             </div>
@@ -148,7 +149,9 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between gap-6 border-t border-white/5 pt-8 lg:flex-row">
           {/* Copyright */}
           <div className="text-sm font-medium">
-            © {currentYear} <span className="text-[--color-brand-yellow]">Starz Cruise</span>. Built by Feline Technology.
+            © {currentYear}{' '}
+            <span className="text-[--color-brand-yellow]">Starz Cruise</span>.
+            Built by Feline Technology.
           </div>
 
           {/* Social Links */}
@@ -158,7 +161,7 @@ const Footer = () => {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 transition-all duration-200 hover:scale-110 hover:bg-brand-yellow hover:text-black"
+                className="hover:bg-brand-yellow flex h-10 w-10 items-center justify-center rounded-full bg-white/5 transition-all duration-200 hover:scale-110 hover:text-black"
               >
                 <social.icon className="h-5 w-5" />
               </a>
@@ -167,7 +170,7 @@ const Footer = () => {
 
           {/* Language / Region */}
           <div className="flex items-center gap-2">
-            <select className="cursor-pointer rounded-lg border border-white/10 bg-black px-4 py-2 text-xs font-bold transition-colors focus:border-brand-yellow focus:outline-none">
+            <select className="focus:border-brand-yellow cursor-pointer rounded-lg border border-white/10 bg-black px-4 py-2 text-xs font-bold transition-colors focus:outline-none">
               <option>Liberia (LR)</option>
               <option>Global (INT)</option>
             </select>

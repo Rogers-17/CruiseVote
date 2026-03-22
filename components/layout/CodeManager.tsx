@@ -14,7 +14,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
     setLoading(true);
     try {
       await db.generateFormattedCodes(pollId, prefix, count);
-      alert("Codes Generated & Saved to DB!");
+      alert('Codes Generated & Saved to DB!');
     } catch (err: any) {
       alert(err.message);
     } finally {
@@ -32,53 +32,59 @@ export default function CodeManager({ pollId }: { pollId: string }) {
       a.download = `Starz-Codes-${new Date().getTime()}.csv`;
       a.click();
     } catch (err) {
-      alert("Export failed");
+      alert('Export failed');
     }
   };
 
   return (
     <div className="space-y-6">
-      <div className="bg-white/5 border border-white/10 p-6 rounded-2xl space-y-4">
-        <div className="flex items-center gap-2 text-[--color-brand-yellow] mb-2">
+      <div className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+        <div className="mb-2 flex items-center gap-2 text-[--color-brand-yellow]">
           <Zap size={18} fill="currentColor" />
-          <h3 className="font-black uppercase tracking-tighter">Bulk Code Generator</h3>
+          <h3 className="font-black tracking-tighter uppercase">
+            Bulk Code Generator
+          </h3>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1">
-            <label className="text-[10px] font-black text-gray-500 uppercase">Format</label>
-            <input 
-              value={prefix} 
-              onChange={e => setPrefix(e.target.value)}
-              className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm focus:border-[--color-brand-yellow] outline-none" 
+            <label className="text-[10px] font-black text-gray-500 uppercase">
+              Format
+            </label>
+            <input
+              value={prefix}
+              onChange={(e) => setPrefix(e.target.value)}
+              className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
             />
           </div>
           <div className="space-y-1">
-            <label className="text-[10px] font-black text-gray-500 uppercase">Amount</label>
-            <input 
+            <label className="text-[10px] font-black text-gray-500 uppercase">
+              Amount
+            </label>
+            <input
               type="number"
-              value={isNaN(count) ? "" : count} 
-              onChange={e => {
+              value={isNaN(count) ? '' : count}
+              onChange={(e) => {
                 const val = parseInt(e.target.value);
                 setCount(isNaN(val) ? 0 : val);
-              }} 
-              className="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm focus:border-[--color-brand-yellow] outline-none" 
+              }}
+              className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
             />
           </div>
         </div>
 
-        <button 
+        <button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full bg-brand-yellow text-black font-black py-4 rounded-xl uppercase tracking-widest hover:bg-[--color-brand-yellow] transition"
+          className="bg-brand-yellow w-full rounded-xl py-4 font-black tracking-widest text-black uppercase transition hover:bg-[--color-brand-yellow]"
         >
-          {loading ? "Generating..." : "Generate Codes"}
+          {loading ? 'Generating...' : 'Generate Codes'}
         </button>
       </div>
 
-      <button 
+      <button
         onClick={handleExport}
-        className="w-full border border-white/10 text-gray-400 font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-white/5 transition"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 py-3 font-bold text-gray-400 transition hover:bg-white/5"
       >
         <Download size={16} /> Export CSV for Printing
       </button>
