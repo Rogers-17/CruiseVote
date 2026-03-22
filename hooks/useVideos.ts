@@ -1,6 +1,6 @@
 'use client';
 
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { useEffect, useState } from 'react';
 export interface VideoWithProfile {
   id: string;
@@ -17,8 +17,6 @@ export interface VideoWithProfile {
     avatar_url: string | null;
   };
 }
-
-const supabase = createClient();
 
 export function useVideos() {
   const [videos, setVideos] = useState<VideoWithProfile[]>([]);

@@ -13,16 +13,9 @@
   --color-brand-yellow-primary: oklch(90.5% 0.182 98.111);
 }
 
-@theme {
-
-}
-
 /* Global styles */
 @layer components {
   /* Add any global component styles here */
-  .gradient {
-    @apply bg-linear-to-r from-purple-600 to-pink-400;
-  }
 }
 
 * {

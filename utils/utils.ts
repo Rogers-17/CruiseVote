@@ -1,4 +1,3 @@
-
 export function formatRelativeDate(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
@@ -44,5 +43,3 @@ export interface VideoTypes {
   views: number;
   uploadDate: string;
 }
-
-

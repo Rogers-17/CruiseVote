@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
+import Providers from './provider';
 
 const poppins = localFont({
   src: [
@@ -30,9 +31,9 @@ const poppins = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'ClipCast',
+  title: 'CruiseVote',
   description:
-    'ClipCast is a renowed Video Streaming Platform designed to watch videos, stream and also upload videos, insipred by YOUTUBE, it a great tool for content creator',
+    'ClipCast is a renowed voting platform built for STARZ CRUISE to aid online voting process',
 };
 
 export default function RootLayout({
@@ -43,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
-        {children}
+        <Providers>{children}</Providers>
         <Analytics debug={false} />
       </body>
     </html>

@@ -1,8 +1,5 @@
-
-
 import React from 'react';
 import {
-  Play,
   Youtube,
   Twitter,
   Facebook,
@@ -36,28 +33,28 @@ const Footer = () => {
 
   const footerLinks: FooterLinksProps = {
     product: [
-      { name: 'Features', href: '#' },
-      { name: 'Pricing', href: '#' },
-      { name: 'API', href: '#' },
-      { name: 'Mobile App', href: '#' },
+      { name: 'Live Polls', href: '#' },
+      { name: 'Contestants', href: '#' },
+      { name: 'Voting FAQ', href: '#' },
+      { name: 'Cruise Schedule', href: '#' },
     ],
     company: [
-      { name: 'About Us', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Press', href: '#' },
-      { name: 'Blog', href: '#' },
+      { name: 'About Starz', href: '#' },
+      { name: 'Events', href: '#' },
+      { name: 'Partners', href: '#' },
+      { name: 'Contact', href: '#' },
     ],
     resources: [
       { name: 'Help Center', href: '#' },
-      { name: 'Community', href: '#' },
-      { name: 'Guidelines', href: '#' },
-      { name: 'Creator Hub', href: '#' },
+      { name: 'Voting Rules', href: '#' },
+      { name: 'Terms of Use', href: '#' },
+      { name: 'Winner History', href: '#' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '#' },
       { name: 'Terms of Service', href: '#' },
       { name: 'Cookie Policy', href: '#' },
-      { name: 'Security', href: '#' },
+      { name: 'Anti-Fraud', href: '#' },
     ],
   };
 
@@ -70,7 +67,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-slate-800 bg-linear-to-b from-slate-900 to-slate-950 text-gray-300 md:ml-64 lg:w-[calc(100%-16rem)]">
+    <footer className="border-t border-white/10 bg-[#0f0f0f] text-gray-400 md:ml-64 lg:w-[calc(100%-16rem)]">
       {/* Main Footer Content */}
       <div className="mx-auto max-w-7xl px-6 py-12">
         {/* Top Section */}
@@ -78,126 +75,69 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="mb-4 flex items-center gap-2">
-              <span className="bg-linear-to-r from-purple-600 to-pink-400 bg-clip-text text-xl font-bold text-transparent md:text-4xl">
-                ClipCast
+              <span className="text-xl font-black uppercase tracking-tighter text-brand-yellow md:text-3xl">
+                STARZ CRUISE
               </span>
             </div>
-            <p className="mb-6 text-sm leading-relaxed text-gray-400">
-              Your premier destination for video streaming and content creation.
-              Join millions of creators and viewers worldwide.
+            <p className="mb-6 text-sm leading-relaxed">
+              Celebrating excellence and talent at Starz University. Join the journey to crown the next Face of Starz Cruise.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm">
-                <Mail className="h-4 w-4 text-red-500" />
-                <span>support@clipcast.com</span>
+              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+                <Mail className="h-4 w-4 text-[--color-brand-yellow]" />
+                <span>support@starzcruise.com</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Phone className="h-4 w-4 text-red-500" />
-                <span>+1 (555) 123-4567</span>
+              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+                <Phone className="h-4 w-4 text-[--color-brand-yellow]" />
+                <span>+231 (000) STARZ-VOTE</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <MapPin className="h-4 w-4 text-red-500" />
-                <span>San Francisco, CA</span>
+              <div className="flex items-center gap-3 text-sm hover:text-brand-yellow transition-colors">
+                <MapPin className="h-4 w-4 text-[--color-brand-yellow]" />
+                <span>Monrovia, Liberia</span>
               </div>
             </div>
           </div>
 
-          {/* Product Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold tracking-wider text-white uppercase">
-              Product
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="inline-block text-sm transition-colors duration-200 hover:translate-x-1 hover:text-red-500"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold tracking-wider text-white uppercase">
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="inline-block text-sm transition-colors duration-200 hover:translate-x-1 hover:text-red-500"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold tracking-wider text-white uppercase">
-              Resources
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="inline-block text-sm transition-colors duration-200 hover:translate-x-1 hover:text-red-500"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold tracking-wider text-white uppercase">
-              Legal
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="inline-block text-sm transition-colors duration-200 hover:translate-x-1 hover:text-red-500"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Dynamic Link Mapping */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h3 className="mb-4 text-xs font-black tracking-widest text-white uppercase italic">
+                {title}
+              </h3>
+              <ul className="space-y-3">
+                {links.map((link: FooterLink) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      className="inline-block text-sm transition-colors duration-200 hover:translate-x-1 hover:text-[--color-brand-yellow]"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Newsletter Section */}
-        <div className="mb-12 rounded-xl border border-slate-700 bg-slate-800/50 p-8">
+        {/* Newsletter / Stay Updated Section */}
+        <div className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h3 className="mb-2 text-xl font-semibold text-white">
-              Stay Updated
+            <h3 className="mb-2 text-xl font-black text-white uppercase italic">
+              Don't Miss the Wave
             </h3>
             <p className="mb-6 text-sm text-gray-400">
-              Subscribe to our newsletter for the latest updates, features, and
-              creator tips.
+              Get notified when new polls go live and winners are announced.
             </p>
             <div className="mx-auto flex max-w-md flex-col gap-3 md:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm transition-colors focus:border-red-500 focus:outline-none"
+                className="flex-1 rounded-xl border border-white/10 bg-black px-4 py-3 text-sm transition-colors focus:border-[--color-brand-yellow] focus:outline-none"
               />
-              <button className="rounded-lg bg-linear-to-r from-red-500 to-pink-600 px-6 py-3 font-medium text-white transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-red-500/30">
+              <button className="rounded-xl bg-brand-yellow px-6 py-3 font-black text-black uppercase transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg shadow-yellow-500/10">
                 Subscribe
               </button>
             </div>
@@ -205,10 +145,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-slate-800 pt-8 md:flex-col lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-white/5 pt-8 lg:flex-row">
           {/* Copyright */}
-          <div className="text-sm text-gray-400">
-            © {currentYear} ClipCast. All rights reserved.
+          <div className="text-sm font-medium">
+            © {currentYear} <span className="text-[--color-brand-yellow]">Starz Cruise</span>. Built by Feline Technology.
           </div>
 
           {/* Social Links */}
@@ -218,19 +158,18 @@ const Footer = () => {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 transition-all duration-200 hover:scale-110 hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/30"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 transition-all duration-200 hover:scale-110 hover:bg-brand-yellow hover:text-black"
               >
                 <social.icon className="h-5 w-5" />
               </a>
             ))}
           </div>
 
-          {/* Language Selector */}
+          {/* Language / Region */}
           <div className="flex items-center gap-2">
-            <select className="cursor-pointer rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm transition-colors focus:border-red-500 focus:outline-none">
-              <option>🇺🇸 English</option>
-              <option>🇪🇸 Español</option>
-              <option>🇫🇷 Français</option>
+            <select className="cursor-pointer rounded-lg border border-white/10 bg-black px-4 py-2 text-xs font-bold transition-colors focus:border-brand-yellow focus:outline-none">
+              <option>Liberia (LR)</option>
+              <option>Global (INT)</option>
             </select>
           </div>
         </div>

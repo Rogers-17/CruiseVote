@@ -25,12 +25,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
     setMounted(true);
   }, []);
 
-  // const isLoggedIn = true;
-  // const user = {
-  //   name: 'Admin User',
-  //   email: 'admin@gmail.com',
-  // };
-
   const { user, isLoggedIn } = useAuthUser();
   const { signOut } = useAuth();
 
@@ -53,7 +47,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             />
           </svg>
         </button>
-        <h1 className="text-brand-yellow text-xl font-bold md:text-4xl">
+        <h1 className="text-brand-yellow text-2xl font-bold md:text-3xl">
           CruiseVote
         </h1>
       </div>
@@ -103,9 +97,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             )}
           </>
         ) : (
-          <div className="flex gap-4">
-           
-          </div>
+          <div className="flex gap-4"></div>
         )}
       </div>
     </nav>

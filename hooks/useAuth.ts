@@ -1,11 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 import { redirect } from 'next/navigation';
 
 export function useAuth() {
-  const supabase = createClient();
   const [message, setMessage] = useState('');
 
   const signUp = useCallback(

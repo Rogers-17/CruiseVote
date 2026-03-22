@@ -29,7 +29,6 @@ export default function HomeLayout() {
           ))}
         </div>
       )} */}
-
       Welcome to CruiseVote
     </section>
   );

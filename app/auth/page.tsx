@@ -34,14 +34,14 @@ export default function AuthPage() {
         <div className="text-center">
           <h1 className="text-center text-5xl font-bold">
             ✨
-            <span className="gradient bg-clip-text text-5xl tracking-tighter text-transparent">
-              ClipCast
+            <span className="text-brand-yellow text-5xl tracking-tighter">
+              CruiseVote
             </span>
           </h1>
           <p className="mt-2 text-gray-400">
             {isSignUp
-              ? 'Join the ClipCast community'
-              : 'Welcome back to ClipCast'}
+              ? 'Join the CruiseVote community'
+              : 'Welcome back to CruiseVote'}
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default function AuthPage() {
               placeholder="Display Name"
               value={displayName}
               required
-              className="w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none focus:border-purple-500"
+              className="focus:border-brand-yellow w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none"
               onChange={(e) => setDisplayName(e.target.value)}
             />
           )}
@@ -63,7 +63,7 @@ export default function AuthPage() {
             placeholder="Email"
             value={email}
             required
-            className="w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none focus:border-purple-500"
+            className="focus:border-brand-yellow w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none"
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -72,7 +72,7 @@ export default function AuthPage() {
             placeholder="Password"
             value={password}
             required
-            className="w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none focus:border-purple-500"
+            className="focus:border-brand-yellow w-full rounded-lg border border-gray-700 bg-gray-900/50 p-3 transition-colors outline-none"
             onChange={(e) => setPassword(e.target.value)}
           />
 
@@ -88,7 +88,7 @@ export default function AuthPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-linear-to-r from-purple-600 to-pink-400 p-3 text-sm font-semibold text-white transition-all hover:bg-purple-700 active:scale-[0.98] disabled:opacity-50"
+            className="bg-brand-yellow-primary hover:bg-brand-yellow w-full rounded-lg p-3 text-sm font-semibold text-black transition-all active:scale-[0.98] disabled:opacity-50"
           >
             {loading
               ? 'Processing...'
@@ -103,7 +103,7 @@ export default function AuthPage() {
           {isSignUp ? 'Already have an account?' : 'New to ClipCast?'}
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className="ml-2 font-medium text-purple-400 hover:underline"
+            className="text-brand-yellow ml-2 font-medium hover:underline"
           >
             {isSignUp ? 'Log in' : 'Sign up'}
           </button>
