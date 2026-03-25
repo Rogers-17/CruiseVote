@@ -26,7 +26,7 @@ export default function PublicVotePage() {
 
   if (loading)
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black font-black text-[--color-brand-yellow] italic">
+      <div className="flex min-h-screen items-center justify-center bg-black font-black text-brand-yellow italic">
         LOADING BALLOT...
       </div>
     );
@@ -34,15 +34,15 @@ export default function PublicVotePage() {
   if (voted) {
     return (
       <div className="animate-in fade-in zoom-in flex min-h-screen flex-col items-center justify-center bg-black p-6 text-center duration-500">
-        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full border border-[--color-brand-yellow]/20 bg-[--color-brand-yellow]/10">
-          <CheckCircle2 className="h-12 w-12 text-[--color-brand-yellow]" />
+        <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full border border-brand-yellow/20 bg-brand-yellow/10">
+          <CheckCircle2 className="h-12 w-12 text-brand-yellow" />
         </div>
         <h1 className="text-4xl font-black tracking-tighter text-white uppercase italic">
           Vote Received!
         </h1>
         <p className="mt-4 max-w-xs font-medium text-gray-400">
           Your support for{' '}
-          <span className="text-[--color-brand-yellow]">
+          <span className="text-brand-yellow">
             {selectedGirl?.name}
           </span>{' '}
           has been recorded.
@@ -58,37 +58,36 @@ export default function PublicVotePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pb-20 text-white">
+    <div className="min-h-screen pb-20">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-30 border-b border-white/5 bg-black/80 p-4 backdrop-blur-md">
-        <div className="mx-auto flex max-w-2xl items-center justify-between">
+      <header className="sticky top-0 z-30 border-b p-4 backdrop-blur-md">
+        <div className="">
           <div>
-            <h1 className="text-lg font-black tracking-tighter text-[--color-brand-yellow] uppercase italic">
+            <h1 className="text-lg font-black tracking-tighter text-brand-yellow uppercase italic">
               {poll?.title || 'Starz Vote'}
             </h1>
-            <p className="text-[9px] font-bold tracking-widest text-gray-500 uppercase">
+            <p className="text-sm font-bold tracking-widest text-gray-500 uppercase">
               Select your favorite
             </p>
           </div>
-          <Vote className="h-5 w-5 text-[--color-brand-yellow]" />
         </div>
       </header>
 
-      <main className="mx-auto max-w-2xl space-y-6 p-4">
+      <main className="space-y-6 p-4">
         {/* Search Bar */}
         <div className="group relative">
-          <Search className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-gray-500 transition-colors group-focus-within:text-[--color-brand-yellow]" />
+          <Search className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-gray-500 transition-colors group-focus-within:text-brand-yellow" />
           <input
             type="text"
             placeholder="Search contestant name..."
-            className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pr-4 pl-12 text-sm transition-all outline-none placeholder:text-gray-600 focus:border-[--color-brand-yellow]"
+            className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pr-4 pl-12 text-sm transition-all outline-none placeholder:text-gray-600 focus:border-brand-yellow"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
 
         {/* Contestant Grid */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {filteredGirls.map((girl) => (
             <div
               key={girl.id}
@@ -104,16 +103,16 @@ export default function PublicVotePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
               <div className="absolute bottom-0 w-full p-4">
-                <p className="text-xs leading-tight font-black tracking-tight text-white uppercase">
+                <p className="text-xs md:text-lg lg:text-xl leading-tight font-black tracking-tight text-white uppercase">
                   {girl.name}
                 </p>
-                <p className="mt-0.5 text-[10px] font-bold text-[--color-brand-yellow] uppercase italic">
+                <p className="mt-0.5 text-[10px] font-bold text-brand-yellow uppercase italic">
                   {girl.department}
                 </p>
               </div>
 
               {/* Selection Glow */}
-              <div className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-[--color-brand-yellow] opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-brand-yellow opacity-0 transition-opacity group-hover:opacity-100" />
             </div>
           ))}
         </div>

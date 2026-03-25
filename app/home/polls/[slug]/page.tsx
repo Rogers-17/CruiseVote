@@ -24,7 +24,7 @@ export default function PollDashboard() {
     return <div className="p-20 text-center text-red-500">Poll not found.</div>;
 
   return (
-    <div className="mx-auto max-w-7xl p-4 md:p-8">
+    <div className="p-4 md:p-6 lg:p-8">
       {/* Header Section */}
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
@@ -53,7 +53,7 @@ export default function PollDashboard() {
         <MobileTab
           active={activeTab === 'contestants'}
           onClick={() => setActiveTab('contestants')}
-          label="Girls"
+          label="Contestants"
         />
         <MobileTab
           active={activeTab === 'codes'}
@@ -68,7 +68,7 @@ export default function PollDashboard() {
       </div>
 
       {/* Main Content Area */}
-      <div className="min-h-[400px]">
+      <div className="min-h-100">
         {activeTab === 'contestants' && (
           <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* <ContestantList pollId={id as string} /> */}

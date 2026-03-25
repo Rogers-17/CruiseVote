@@ -9,8 +9,8 @@ export default function VotePollSelection() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0a]">
-        <div className="animate-pulse text-2xl font-black tracking-tighter text-[--color-brand-yellow] italic">
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-pulse text-2xl font-black tracking-tighter text-brand-yellow italic">
           LOADING STARZ CONTESTS...
         </div>
       </div>
@@ -18,22 +18,22 @@ export default function VotePollSelection() {
   }
 
   return (
-    <section className="min-h-screen bg-[#0a0a0a] p-6 pb-20 text-white">
-      <header className="mx-auto mb-12 max-w-4xl text-center">
-        <div className="mb-4 inline-block rounded-full border border-[--color-brand-yellow]/20 bg-[--color-brand-yellow]/10 px-3 py-1">
-          <p className="text-[10px] font-black tracking-[0.3em] text-[--color-brand-yellow] uppercase">
+    <section className="p-6 pb-20">
+      <header className="mb-12">
+        <div className="mb-4 inline-block rounded-full border border-brand-yellow/20 bg-brand-yellow/10 px-3 py-1">
+          <p className="text-[10px] font-black tracking-[0.3em] text-brand-yellow uppercase">
             Official Voting Portal
           </p>
         </div>
-        <h1 className="text-5xl font-black tracking-tighter text-white uppercase italic">
-          Active <span className="text-[--color-brand-yellow]">Polls</span>
+        <h1 className="text-5xl font-black tracking-tighter uppercase italic">
+          Active <span className="text-brand-yellow">Polls</span>
         </h1>
         <p className="mt-2 font-medium text-gray-500">
           Select a contest below to cast your official vote.
         </p>
       </header>
 
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+      <div className=" grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
         {allPolls.map((poll: any) => (
           <Link
             href={poll.is_active ? `vote/${poll.id}` : '#'}
@@ -41,11 +41,11 @@ export default function VotePollSelection() {
             className={`group relative ${!poll.is_active ? 'cursor-not-allowed opacity-60' : ''}`}
           >
             <div
-              className={`h-full border bg-white/5 ${poll.is_active ? 'border-white/10 group-hover:border-[--color-brand-yellow]/50 group-hover:bg-white/10' : 'border-white/5'} rounded-[2rem] p-8 shadow-2xl transition-all duration-300`}
+              className={`h-full border bg-white/5 ${poll.is_active ? ' group-hover:border-brand-yellow/50 group-hover:bg-white/10' : 'border-white/5'} rounded-[2rem] p-8 shadow-2xl transition-all duration-300`}
             >
               <div className="mb-6 flex items-start justify-between">
                 <div
-                  className={`rounded-2xl p-3 ${poll.is_active ? 'bg-[--color-brand-yellow] text-black' : 'bg-gray-800 text-gray-500'}`}
+                  className={`rounded-2xl p-3 ${poll.is_active ? 'bg-brand-yellow' : 'bg-gray-800'}`}
                 >
                   <Vote size={24} />
                 </div>
@@ -61,7 +61,7 @@ export default function VotePollSelection() {
               </div>
 
               <h2
-                className={`mb-2 text-2xl font-black tracking-tight uppercase italic transition-colors ${poll.is_active ? 'text-white group-hover:text-[--color-brand-yellow]' : 'text-gray-500'}`}
+                className={`mb-2 text-2xl font-black tracking-tight uppercase italic transition-colors ${poll.is_active ? ' group-hover:text-[--color-brand-yellow]' : 'text-gray-500'}`}
               >
                 {poll.title}
               </h2>
@@ -82,7 +82,7 @@ export default function VotePollSelection() {
                 </div>
 
                 {poll.is_active ? (
-                  <div className="flex items-center gap-1 text-xs font-black tracking-widest text-[--color-brand-yellow] uppercase transition-transform group-hover:translate-x-1">
+                  <div className="flex items-center gap-1 text-xs font-black tracking-widest text-brand-yellow uppercase transition-transform group-hover:translate-x-1">
                     Enter Booth <ChevronRight size={16} />
                   </div>
                 ) : (
@@ -95,7 +95,7 @@ export default function VotePollSelection() {
 
             {/* Background Glow Effect on Hover */}
             {poll.is_active && (
-              <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-[--color-brand-yellow] to-yellow-600 opacity-0 blur transition duration-500 group-hover:opacity-10" />
+              <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-brand-yellow to-yellow-600 opacity-0 blur transition duration-500 group-hover:opacity-10" />
             )}
           </Link>
         ))}

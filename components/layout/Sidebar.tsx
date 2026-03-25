@@ -34,9 +34,9 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
   return (
     <>
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r border-gray-800 bg-black text-gray-300 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r transition-transform duration-300 ease-in-out  ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
-        <div className="text-md p-4 font-medium text-gray-300">
+        <div className="text-md p-4 font-medium">
           {PrimarySideBarItems.map((item) => {
             const isActive = pathName === item.path;
 
@@ -59,10 +59,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
       </aside>
 
       {isOpen && (
-        <div
-          onClick={closeSidebar}
-          className="fixed inset-0 z-30 bg-black/50 md:hidden"
-        />
+        <div onClick={closeSidebar} className="fixed inset-0 z-30 md:hidden backdrop-blur-sm" />
       )}
     </>
   );

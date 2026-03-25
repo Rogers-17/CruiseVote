@@ -61,7 +61,7 @@ export default function VoteModal({ girl, pollId, onClose, onSuccess }: any) {
             </div>
             <input
               placeholder="ENTER VOTING CODE"
-              className={`w-full border bg-black ${error ? 'border-red-500' : 'focus:border-brand-yellow border-white/10'} rounded-2xl py-5 pr-4 pl-14 text-center font-black tracking-[0.4em] text-[--color-brand-yellow] uppercase transition-all outline-none placeholder:tracking-normal placeholder:text-gray-800`}
+              className={`w-full border bg-black ${error ? 'border-red-500' : 'focus:border-brand-yellow border-white/10'} rounded-2xl py-5 pr-4 pl-14 text-center font-black tracking-[0.4em] text-brand-yellow uppercase transition-all outline-none placeholder:tracking-normal placeholder:text-gray-800`}
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               autoFocus

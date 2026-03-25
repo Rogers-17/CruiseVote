@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuthUser } from '@/hooks/useAuthUser';
 import { useAuth } from '@/hooks/useAuth';
+import ThemeToggle from './ThemeToggle';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -29,12 +30,12 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
   const { signOut } = useAuth();
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b border-gray-200 bg-black px-6">
+    <nav className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b px-6 backdrop-blur-2xl">
       <div className="flex items-center gap-4">
         <button onClick={onToggleSidebar} className="rounded-lg p-2 md:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -53,9 +54,10 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-4">
+        <ThemeToggle />
         {isLoggedIn ? (
           <>
-            <button className="relative rounded-full p-2 text-gray-300">
+            <button className="relative rounded-full p-2">
               <span className="absolute top-2 right-2 h-2 w-2 rounded-full border-2 border-white bg-red-500" />
               <FaBell className="h-6 w-6" />
             </button>

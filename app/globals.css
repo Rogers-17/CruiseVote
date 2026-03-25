@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* Custom styles & variables for ClipCast */
 @theme inline {
   --font-poppins: var(--font-poppins), sans-serif;
   --breakpoint-sm: 375px;
@@ -11,13 +10,36 @@
   --color-brand-yellow-electric: #fef08a;
   --color-brand-yellow-canary: #ffff8f;
   --color-brand-yellow-primary: oklch(90.5% 0.182 98.111);
+
+  /* Semantic Theme Variables */
+  --bg-app: white;
+  --text-app: #1a1a1a;
+  --border-app: #e5e7eb;
+  --sidebar-app:  
+;
 }
 
-/* Global styles */
-@layer components {
-  /* Add any global component styles here */
+/* Dark Mode Overrides */
+.dark {
+  --bg-app: #0a0a0a;
+  --text-app: #ffffff;
+  --border-app: rgba(255, 255, 255, 0.1);
 }
 
 * {
   font-family: var(--font-poppins);
+}
+
+@layer {
+  .sidebar {
+    @apply border-gray-800 bg-black text-gray-300;
+  }
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-app);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

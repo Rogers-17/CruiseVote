@@ -38,10 +38,8 @@ export default function CreatePollPage() {
   }
 
   return (
-    <div className="rounded-xl p-8 shadow-lg">
-      <h1 className="mb-6 text-2xl font-bold text-gray-200">
-        Create New Voting Poll
-      </h1>
+    <div className="rounded-xl p-4 md:px-6 lg:px-8">
+      <h1 className="mb-6 text-2xl font-bold">Create New Voting Poll</h1>
 
       <form action={createPoll} className="space-y-4">
         <div>
@@ -69,7 +67,7 @@ export default function CreatePollPage() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-400">
               Start Date

@@ -23,6 +23,11 @@ interface AppContextVal {
     data: ContestantPayload & { poll_id: string },
   ) => Promise<void>;
   generateCodes: (prefix: string, count: number) => Promise<void>;
+  theme: 'dark' | 'light';
+  toggleTheme: () => void;
+  user: any | null;
+  isAdmin: boolean;
+  authLoading: boolean;
 }
 
 const AppContext = React.createContext<AppContextVal | null>(null);
@@ -30,8 +35,42 @@ const AppContext = React.createContext<AppContextVal | null>(null);
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const qc = useQueryClient();
 
+  // 1. Theme State
+  const [theme, setTheme] = React.useState<'dark' | 'light'>('dark');
+
+  // 2. Auth State
+  const [user, setUser] = React.useState<any | null>(null);
+  const [authLoading, setAuthLoading] = React.useState(true);
+
+  // --- Auth & Theme Logic ---
+  React.useEffect(() => {
+    // Sync theme with HTML class for Tailwind 'dark:' selector
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.toggle('light', theme === 'light');
+  }, [theme]);
+
+  React.useEffect(() => {
+    // Check initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setAuthLoading(false);
+    });
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setAuthLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  const isAdmin = !!user; // For now, any logged in user is admin. You can refine this later.
+
   // ------------- Real-Time Listener ----------------
-  // This listens for any changes in the DB and refreshes your TanStack cache
   React.useEffect(() => {
     const channel = supabase
       .channel('voting-updates')
@@ -147,6 +186,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const generateCodes = (prefix: string, count: number) =>
     generateCodesMut.mutateAsync({ prefix, count });
 
+  const handleGenerate = () => {};
+
   return (
     <AppContext.Provider
       value={{
@@ -157,9 +198,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         generateCodes,
         loading,
         allPolls: allPollsQ.data ?? [],
+        theme,
+        toggleTheme,
+        user,
+        isAdmin,
+        authLoading,
       }}
     >
-      {children}
+      <div
+        className={`${theme === 'dark' ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'} min-h-screen transition-colors duration-300`}
+      >
+        {children}
+      </div>
     </AppContext.Provider>
   );
 }

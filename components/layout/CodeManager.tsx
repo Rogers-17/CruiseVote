@@ -38,8 +38,8 @@ export default function CodeManager({ pollId }: { pollId: string }) {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-4 rounded-2xl border border-white/10 bg-white/5 p-6">
-        <div className="mb-2 flex items-center gap-2 text-[--color-brand-yellow]">
+      <div className="space-y-4 rounded-2xl border  p-6">
+        <div className="mb-2 flex items-center gap-2 text-brand-yellow">
           <Zap size={18} fill="currentColor" />
           <h3 className="font-black tracking-tighter uppercase">
             Bulk Code Generator
@@ -54,7 +54,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
             <input
               value={prefix}
               onChange={(e) => setPrefix(e.target.value)}
-              className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
+              className="w-full rounded-xl border p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
             />
           </div>
           <div className="space-y-1">
@@ -68,7 +68,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
                 const val = parseInt(e.target.value);
                 setCount(isNaN(val) ? 0 : val);
               }}
-              className="w-full rounded-xl border border-white/10 bg-black/50 p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
+              className="w-full rounded-xl border  p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
             />
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="bg-brand-yellow w-full rounded-xl py-4 font-black tracking-widest text-black uppercase transition hover:bg-[--color-brand-yellow]"
+          className="bg-brand-yellow w-full rounded-xl py-4 font-black tracking-widest uppercase transition hover:bg-[--color-brand-yellow]"
         >
           {loading ? 'Generating...' : 'Generate Codes'}
         </button>
@@ -84,7 +84,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
 
       <button
         onClick={handleExport}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 py-3 font-bold text-gray-400 transition hover:bg-white/5"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border py-3 font-bold  transition hover:bg-white/5"
       >
         <Download size={16} /> Export CSV for Printing
       </button>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
 import Footer from '../../components/layout/Footer';
+import { useApp } from '@/context/AppContext'; // Import your hook
 
 export default function HomeLayout({
   children,
@@ -11,9 +12,11 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { theme } = useApp(); // Access the current theme
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    // Remove "bg-black text-white" so it uses the CSS variables
+    <div className="min-h-screen">
       <Header onToggleSidebar={() => setIsSidebarOpen((open) => !open)} />
 
       <Sidebar

@@ -67,7 +67,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-white/10 bg-[#0f0f0f] text-gray-400 md:ml-64 lg:w-[calc(100%-16rem)]">
+    <footer className="border-t md:ml-64 lg:w-[calc(100%-16rem)]">
       {/* Main Footer Content */}
       <div className="mx-auto max-w-7xl px-6 py-12">
         {/* Top Section */}
@@ -104,7 +104,7 @@ const Footer = () => {
           {/* Dynamic Link Mapping */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="mb-4 text-xs font-black tracking-widest text-white uppercase italic">
+              <h3 className="mb-4 text-xs font-black tracking-widest uppercase italic">
                 {title}
               </h3>
               <ul className="space-y-3">
@@ -124,9 +124,9 @@ const Footer = () => {
         </div>
 
         {/* Newsletter / Stay Updated Section */}
-        <div className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-8">
+        <div className="mb-12 rounded-2xl border bg-white/5 p-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h3 className="mb-2 text-xl font-black text-white uppercase italic">
+            <h3 className="mb-2 text-xl font-black uppercase italic">
               Don't Miss the Wave
             </h3>
             <p className="mb-6 text-sm text-gray-400">
@@ -136,7 +136,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 rounded-xl border border-white/10 bg-black px-4 py-3 text-sm transition-colors focus:border-[--color-brand-yellow] focus:outline-none"
+                className="flex-1 rounded-xl border px-4 py-3 text-sm transition-colors focus:border-[--color-brand-yellow] focus:outline-none"
               />
               <button className="bg-brand-yellow rounded-xl px-6 py-3 font-black text-black uppercase shadow-lg shadow-yellow-500/10 transition-all duration-200 hover:scale-[1.02] active:scale-95">
                 Subscribe
@@ -146,12 +146,12 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-white/5 pt-8 lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 border-t pt-8 lg:flex-row">
           {/* Copyright */}
           <div className="text-sm font-medium">
             © {currentYear}{' '}
             <span className="text-[--color-brand-yellow]">Starz Cruise</span>.
-            Built by Feline Technology.
+            Built by Rogers
           </div>
 
           {/* Social Links */}
@@ -170,7 +170,7 @@ const Footer = () => {
 
           {/* Language / Region */}
           <div className="flex items-center gap-2">
-            <select className="focus:border-brand-yellow cursor-pointer rounded-lg border border-white/10 bg-black px-4 py-2 text-xs font-bold transition-colors focus:outline-none">
+            <select className="focus:border-brand-yellow cursor-pointer rounded-lg border px-4 py-2 text-xs font-bold transition-colors focus:outline-none">
               <option>Liberia (LR)</option>
               <option>Global (INT)</option>
             </select>

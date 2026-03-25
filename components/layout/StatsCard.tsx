@@ -25,7 +25,7 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
 
       {/* Leaderboard List */}
       <div className="space-y-5">
-        <h3 className="px-2 text-xs font-black tracking-widest text-white uppercase italic">
+        <h3 className="px-2 text-sm font-black tracking-widest uppercase">
           Current Standings
         </h3>
 
@@ -51,8 +51,8 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                 <div
                   className={`absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-md border text-[10px] font-black ${
                     isFirst
-                      ? 'bg-brand-yellow border-yellow-400 text-black shadow-lg'
-                      : 'border-white/20 bg-black text-white'
+                      ? 'bg-brand-yellow border-yellow-400 shadow-lg'
+                      : ''
                   }`}
                 >
                   {index + 1}
@@ -65,12 +65,12 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                   <div>
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-sm font-black tracking-tight uppercase ${isFirst ? 'text-white' : 'text-gray-300'}`}
+                        className={`text-sm font-black tracking-tight uppercase ${isFirst ? '' : ''}`}
                       >
                         {girl.name}
                       </span>
                       {isFirst && (
-                        <Trophy className="h-3 w-3 text-[--color-brand-yellow]" />
+                        <Trophy className="h-3 w-3 text-brand-yellow" />
                       )}
                     </div>
                     <p className="text-[10px] font-bold text-gray-500 uppercase">
@@ -78,7 +78,7 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="block text-xs font-black text-[--color-brand-yellow] italic">
+                    <span className="block text-xs font-black text-brand-yellow italic">
                       {girl.vote_count.toLocaleString()}{' '}
                       <span className="ml-0.5 text-[8px] text-gray-500 uppercase not-italic">
                         Votes

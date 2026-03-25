@@ -33,7 +33,7 @@ const poppins = localFont({
 export const metadata: Metadata = {
   title: 'CruiseVote',
   description:
-    'ClipCast is a renowed voting platform built for STARZ CRUISE to aid online voting process',
+    'CruiseVote is a renowed voting platform built for STARZ CRUISE to aid online voting process',
 };
 
 export default function RootLayout({
