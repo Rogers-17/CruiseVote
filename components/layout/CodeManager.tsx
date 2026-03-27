@@ -38,8 +38,8 @@ export default function CodeManager({ pollId }: { pollId: string }) {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-4 rounded-2xl border  p-6">
-        <div className="mb-2 flex items-center gap-2 text-brand-yellow">
+      <div className="space-y-4 rounded-2xl border p-6">
+        <div className="text-brand-yellow mb-2 flex items-center gap-2">
           <Zap size={18} fill="currentColor" />
           <h3 className="font-black tracking-tighter uppercase">
             Bulk Code Generator
@@ -68,7 +68,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
                 const val = parseInt(e.target.value);
                 setCount(isNaN(val) ? 0 : val);
               }}
-              className="w-full rounded-xl border  p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
+              className="w-full rounded-xl border p-3 text-sm outline-none focus:border-[--color-brand-yellow]"
             />
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function CodeManager({ pollId }: { pollId: string }) {
 
       <button
         onClick={handleExport}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border py-3 font-bold  transition hover:bg-white/5"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border py-3 font-bold transition hover:bg-white/5"
       >
         <Download size={16} /> Export CSV for Printing
       </button>

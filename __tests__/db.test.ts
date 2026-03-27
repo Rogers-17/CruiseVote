@@ -1,6 +1,5 @@
-import * as db from '../utils/supabase/db';
+import  * as db from '../utils/supabase/db';
 describe('db helpers', () => {
-  const db = require('../utils/supabase/db');
 
   describe('db helpers', () => {
     it('healthCheck throws on error', async () => {

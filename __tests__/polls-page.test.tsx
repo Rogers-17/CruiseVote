@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import Polls from '../app/home/polls/page';
-import { AppProvider } from '../context/AppContext';
 
 describe('Polls page', () => {
   it('renders loading state', () => {

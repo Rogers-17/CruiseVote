@@ -50,9 +50,7 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                 {/* Rank Badge */}
                 <div
                   className={`absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-md border text-[10px] font-black ${
-                    isFirst
-                      ? 'bg-brand-yellow border-yellow-400 shadow-lg'
-                      : ''
+                    isFirst ? 'bg-brand-yellow border-yellow-400 shadow-lg' : ''
                   }`}
                 >
                   {index + 1}
@@ -70,7 +68,7 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                         {girl.name}
                       </span>
                       {isFirst && (
-                        <Trophy className="h-3 w-3 text-brand-yellow" />
+                        <Trophy className="text-brand-yellow h-3 w-3" />
                       )}
                     </div>
                     <p className="text-[10px] font-bold text-gray-500 uppercase">
@@ -78,7 +76,7 @@ export default function LiveLeaderboard({ pollId }: { pollId: string }) {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="block text-xs font-black text-brand-yellow italic">
+                    <span className="text-brand-yellow block text-xs font-black italic">
                       {girl.vote_count.toLocaleString()}{' '}
                       <span className="ml-0.5 text-[8px] text-gray-500 uppercase not-italic">
                         Votes

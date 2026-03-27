@@ -5,21 +5,22 @@ import { useParams } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { Search, CheckCircle2} from 'lucide-react';
 import VoteModal from '@/components/layout/VoteModal';
+import Image from 'next/image'
 
-export default function PublicVotePage() {
-  const { id } = useParams();
+export default function PublicVotePage({pollId}: {pollId: string}) {
+  const { id, slug } = useParams();
   const { contestants, allPolls, loading } = useApp();
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedGirl, setSelectedGirl] = React.useState<any>(null);
   const [voted, setVoted] = React.useState(false);
 
-  // 1. Find the current Poll
-  const poll = allPolls.find((p: any) => p.id === id);
+   // 1. Find the current Poll
+  const poll = allPolls.find((p: any) => p.slug === slug);
 
   // 2. Filter Contestants by Search
   const filteredGirls = contestants
-    .filter((c) => c.poll_id === id)
+    .filter((c) => c.poll_id === poll.id)
     .filter((c) => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   if (loading)
@@ -31,7 +32,7 @@ export default function PublicVotePage() {
 
   if (voted) {
     return (
-      <div className="animate-in fade-in zoom-in flex min-h-screen flex-col items-center justify-center bg-black p-6 text-center duration-500">
+      <div className="animate-in fade-in zoom-in flex min-h-screen flex-col items-center justify-center p-6 text-center duration-500">
         <div className="border-brand-yellow/20 bg-brand-yellow/10 mb-6 flex h-24 w-24 items-center justify-center rounded-full border">
           <CheckCircle2 className="text-brand-yellow h-12 w-12" />
         </div>
@@ -45,7 +46,7 @@ export default function PublicVotePage() {
         </p>
         <button
           onClick={() => setVoted(false)}
-          className="mt-10 rounded-full border border-white/10 bg-white/5 px-8 py-3 text-xs font-black tracking-widest uppercase transition hover:bg-white/10"
+          className="mt-10 rounded-full border px-8 py-3 text-xs font-black tracking-widest uppercase transition hover:bg-white/10"
         >
           Vote for someone else
         </button>
@@ -126,7 +127,7 @@ export default function PublicVotePage() {
       {selectedGirl && (
         <VoteModal
           girl={selectedGirl}
-          pollId={id as string}
+          pollId={slug as string}
           onClose={() => setSelectedGirl(null)}
           onSuccess={() => setVoted(true)}
         />

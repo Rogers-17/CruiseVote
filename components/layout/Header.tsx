@@ -57,10 +57,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
         <ThemeToggle />
         {isLoggedIn ? (
           <>
-            <button className="relative rounded-full p-2">
-              <span className="absolute top-2 right-2 h-2 w-2 rounded-full border-2 border-white bg-red-500" />
-              <FaBell className="h-6 w-6" />
-            </button>
             {mounted ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

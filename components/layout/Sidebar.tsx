@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Vote, PlusCircle, HomeIcon } from 'lucide-react';
+import { Vote, PlusCircle, HomeIcon, UserCogIcon } from 'lucide-react';
+import { useApp } from '@/context/AppContext';
 import * as React from 'react';
 
 interface SideBarItemTypes {
@@ -10,6 +11,7 @@ interface SideBarItemTypes {
   name: string;
   path: string;
   icon: React.ReactNode;
+  isAdmin: boolean;
 }
 interface SidebarProps {
   isOpen: boolean;
@@ -18,26 +20,38 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
   const pathName = usePathname();
+  const { isAdmin } = useApp();
 
   const PrimarySideBarItems: SideBarItemTypes[] = [
-    { id: 1, name: 'Home', path: '/home', icon: <HomeIcon /> },
-    { id: 2, name: 'Polls', path: '/home/polls', icon: <Vote /> },
-    { id: 4, name: 'Vote', path: '/home/vote', icon: <Vote /> },
+    { id: 1, name: 'Home', path: '/home', icon: <HomeIcon />, isAdmin: false },
+    {
+      id: 2,
+      name: 'Manage',
+      path: '/home/polls',
+      icon: <UserCogIcon />,
+      isAdmin: true,
+    },
+    { id: 4, name: 'Vote', path: '/home/vote', icon: <Vote />, isAdmin: false },
     {
       id: 3,
       name: 'Create Poll',
       path: '/home/create-poll',
       icon: <PlusCircle />,
+      isAdmin: true,
     },
   ];
+
+  const filteredMenu = PrimarySideBarItems.filter(
+    (item) => !item.isAdmin || isAdmin,
+  );
 
   return (
     <>
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r transition-transform duration-300 ease-in-out  ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
+        className={`fixed top-16 bottom-0 left-0 z-40 w-64 border-r transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}
       >
         <div className="text-md p-4 font-medium">
-          {PrimarySideBarItems.map((item) => {
+          {filteredMenu.map((item) => {
             const isActive = pathName === item.path;
 
             return (
@@ -59,7 +73,10 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
       </aside>
 
       {isOpen && (
-        <div onClick={closeSidebar} className="fixed inset-0 z-30 md:hidden backdrop-blur-sm" />
+        <div
+          onClick={closeSidebar}
+          className="fixed inset-0 z-30 backdrop-blur-sm md:hidden"
+        />
       )}
     </>
   );

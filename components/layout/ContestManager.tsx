@@ -54,22 +54,22 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
     <div className="animate-in fade-in slide-in-from-bottom-4 space-y-6">
       <form
         onSubmit={handleUpload}
-        className="space-y-4 rounded-2xl border  p-6"
+        className="space-y-4 rounded-2xl border p-6"
       >
         <h3 className="text-brand-yellow font-black tracking-tighter uppercase italic">
           Add New Contestant
         </h3>
 
         <div className="flex w-full items-center justify-center">
-          <label className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed  transition hover:bg-white/5">
+          <label className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed transition hover:bg-white/5">
             {file ? (
               <span className="text-sm font-bold text-[--color-brand-yellow]">
                 {file.name}
               </span>
             ) : (
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <Camera className="mb-2 h-8 w-8 " />
-                <p className="text-xs font-bold  uppercase">
+                <Camera className="mb-2 h-8 w-8" />
+                <p className="text-xs font-bold uppercase">
                   Tap to upload photo
                 </p>
               </div>
@@ -86,7 +86,7 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
         <input
           placeholder="Full Name"
           required
-          className="w-full rounded-xl border p-3 text-sm transition outline-none focus:border-brand-yellow"
+          className="focus:border-brand-yellow w-full rounded-xl border p-3 text-sm transition outline-none"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -94,7 +94,7 @@ export default function ContestantManager({ pollId }: { pollId: string }) {
         <input
           placeholder="Department (e.g. IT, Business)"
           required
-          className="w-full rounded-xl border p-3 text-sm transition outline-none focus:border-brand-yellow"
+          className="focus:border-brand-yellow w-full rounded-xl border p-3 text-sm transition outline-none"
           value={form.department}
           onChange={(e) => setForm({ ...form, department: e.target.value })}
         />

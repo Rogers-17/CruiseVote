@@ -28,7 +28,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black px-6 text-white">
+    <div className="flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-100 space-y-8">
         {/* Header */}
         <div className="text-center">
@@ -79,7 +79,7 @@ export default function AuthPage() {
           {/* Feedback Message */}
           {message && (
             <div
-              className={`rounded border bg-gray-900 p-3 text-sm ${message.includes('success') || message.includes('email') ? 'border-green-900 text-green-400' : 'border-red-900 text-red-400'}`}
+              className={`rounded border p-3 text-sm ${message.includes('success') || message.includes('email') ? 'border-green-900 text-green-400' : 'border-red-900 text-red-400'}`}
             >
               {message}
             </div>

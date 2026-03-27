@@ -13,7 +13,7 @@ export default function AdminGuard({
 
   useEffect(() => {
     if (!authLoading && !isAdmin) {
-      router.push('/login'); // Redirect unauthorized people
+      router.push('/auth'); // Redirect unauthorized people
     }
   }, [isAdmin, authLoading, router]);
 
