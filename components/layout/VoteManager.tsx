@@ -127,7 +127,7 @@ export default function PublicVotePage({pollId}: {pollId: string}) {
       {selectedGirl && (
         <VoteModal
           girl={selectedGirl}
-          pollId={slug as string}
+          pollId={poll.id}
           onClose={() => setSelectedGirl(null)}
           onSuccess={() => setVoted(true)}
         />
