@@ -117,14 +117,6 @@ export default function Settings() {
           </div>
         </section>
       )}
-
-      {/* Save Action Bar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 z-50">
-        <button className="bg-brand-yellow  px-8 py-4 rounded-full font-black uppercase tracking-tighter italic flex items-center gap-3 shadow-2xl shadow-brand-yellow/20 active:scale-95 transition-all">
-          <Save size={18} />
-          Save Changes
-        </button>
-      </div>
     </div>
   );
 }
