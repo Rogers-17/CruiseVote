@@ -41,7 +41,7 @@ export default function Settings() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-4xl space-y-10 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       {/* 1. Account Profile */}
       <section className=" border  rounded-3xl p-6 shadow-2xl">
@@ -51,7 +51,7 @@ export default function Settings() {
             <input 
               type="text" 
               placeholder="Charles Glow" 
-              defaultValue={user.user_metadata.display_name || 'guestuser'}
+              defaultValue={user?.user_metadata?.display_name || 'Admin'}
               className=" border  rounded-xl px-4 py-2 text-xs outline-none focus:border-brand-yellow transition-all w-full md:w-64"
             />
           </SettingRow>
@@ -59,7 +59,7 @@ export default function Settings() {
             <input 
               type="email" 
               disabled
-              defaultValue={user.email || 'guestuser@starz.edu'} 
+              defaultValue={user?.email || 'guestuser@starz.edu'} 
               className=" border  rounded-xl px-4 py-2 text-xs w-full md:w-64 cursor-not-allowed"
             />
           </SettingRow>
