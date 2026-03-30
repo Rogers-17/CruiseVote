@@ -71,7 +71,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
           </nav>
 
           {/* Bottom Section */}
-          <div className="space-y-1">
+          <div className="space-y-1 mb-5">
             {bottomNavItems
               .filter((item) => !item.isAdmin || isAdmin)
               .map((item) => (
