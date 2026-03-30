@@ -36,7 +36,7 @@ export default function Polls() {
               key={poll.id}
               className="group"
             >
-              <div className="rounded-[2rem] border border-[--border-app] bg-[--card-bg] p-6 transition-all duration-300 hover:border-[--color-brand-yellow] hover:shadow-[--color-brand-yellow]/5 hover:shadow-2xl">
+              <div className="rounded-4xl border border-[--border-app] bg-[--card-bg] p-6 transition-all duration-300 hover:border-[--color-brand-yellow] hover:shadow-[--color-brand-yellow]/5 hover:shadow-2xl">
                 <div className="mb-4 flex items-start justify-between">
                   <h2 className="text-xl font-black tracking-tight uppercase italic transition group-hover:text-[--color-brand-yellow]">
                     {poll.title}

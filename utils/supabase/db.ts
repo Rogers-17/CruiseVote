@@ -8,7 +8,16 @@ import {
 import { supabase } from './client';
 // import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
-// --- PRESERVED ORIGINAL FUNCTIONS ---
+export interface VoteCode {
+  id: string;
+  code: string;
+  poll_id: string;
+  is_used: boolean;
+  status: 'available' | 'voted' | 'void'; 
+  created_at: string;
+  used_at: string | null; 
+}
+export type VoteCodesList = VoteCode[];
 
 export async function healthCheck(): Promise<string> {
   const { error } = await supabase.from('contestants').select('id').limit(1);
@@ -80,7 +89,17 @@ export async function getAllPolls() {
   return data;
 }
 
-getAllPolls;
+export async function getAllCodes(): Promise<VoteCode[]> {
+  const { data, error } = await supabase
+    .from('vote_codes')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) {
+    console.error("Supabase Error:", error.message, error.details);
+    throw new Error('Failed to fetch codes');
+  }
+  return data as VoteCode[];
+}
 
 /**
  * Custom Code Generator

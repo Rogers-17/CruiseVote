@@ -11,11 +11,13 @@ export const QK = {
   votes: ['votes'] as const,
   activePoll: ['activePoll'] as const,
   contestants: ['contestants'] as const,
+  voteCodes: ['vote-codes'] as const,
 };
 
 interface AppContextVal {
   activePoll: any;
   allPolls: any;
+  allCodes: db.VoteCode[];
   contestants: any[];
   retry: () => void;
   loading: boolean;
@@ -145,12 +147,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     enabled: healthQ.isSuccess,
   });
 
+  const voteCodesQ = useQuery({
+    queryKey: QK.voteCodes,
+    queryFn: () => db.getAllCodes(),
+    enabled: healthQ.isSuccess,
+  })
+
   // ----------- Invalidation Helpers -----------
   const invalidateAll = React.useCallback(() => {
     qc.invalidateQueries({ queryKey: QK.health });
     qc.invalidateQueries({ queryKey: QK.votes });
     qc.invalidateQueries({ queryKey: QK.activePoll });
     qc.invalidateQueries({ queryKey: QK.contestants });
+    qc.invalidateQueries({ queryKey: QK.voteCodes });
   }, [qc]);
 
   const retry = React.useCallback(() => {
@@ -177,6 +186,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     healthQ.isPending ||
     activePollQ.isPending ||
     votesQ.isPending ||
+    voteCodesQ.isPending ||
     contestantsQ.isPending;
 
   // ── Async wrappers ──────
@@ -186,12 +196,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const generateCodes = (prefix: string, count: number) =>
     generateCodesMut.mutateAsync({ prefix, count });
 
-  const handleGenerate = () => {};
+  // const handleGenerate = () => {};
 
   return (
     <AppContext.Provider
       value={{
-        activePoll: activePollQ.data,
+        activePoll: activePollQ.data ?? [],
+        allCodes: voteCodesQ.data ?? [],
         contestants,
         retry,
         addContestant,

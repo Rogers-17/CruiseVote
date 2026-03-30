@@ -5,36 +5,36 @@ import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useApp();
+  const isDark = theme === 'dark';
 
   return (
     <button
       onClick={toggleTheme}
-      className={`relative flex items-center gap-3 rounded-full px-3 py-1.5 transition-all duration-500 ${
-        theme === 'dark'
-          ? 'border border-white/10 bg-white/5 hover:border-[--color-brand-yellow]/50'
+      className={`relative flex items-center rounded-xl p-1 transition-all duration-500 ${
+        isDark
+          ? 'border border-white/10 bg-white/5 hover:border-brand-yellow/50'
           : 'border border-gray-200 bg-gray-100 hover:border-blue-500'
-      } `}
-      title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      }`}
     >
-      {/* Moving Slider Background */}
+      {/* Moving Background Slider */}
       <div
-        className={`absolute top-1 bottom-1 w-8 rounded-full shadow-sm transition-all duration-500 ${
-          theme === 'dark'
-            ? 'left-1 bg-[--color-brand-yellow]'
-            : 'left-[calc(100%-2.25rem)] bg-blue-600'
-        } `}
+        className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-lg shadow-sm transition-all duration-500 ease-in-out ${
+          isDark 
+            ? 'left-[calc(50%+2px)] bg-brand-yellow border-brand-yellow' 
+            : 'left-1 bg-white'
+        }`}
       />
 
-      {/* Icons */}
-      <div className="relative z-10 flex w-full items-center justify-between gap-4">
-        <Sun
-          size={14}
-          className={`transition-colors duration-500 ${theme === 'dark' ? 'text-black' : 'text-gray-400'}`}
-        />
-        <Moon
-          size={14}
-          className={`transition-colors duration-500 ${theme === 'light' ? 'text-white' : 'text-gray-500'}`}
-        />
+      {/* Label: Light */}
+      <div className={`relative z-10 flex w-24 items-center justify-center gap-2 px-3 py-1.5 transition-colors duration-500 ${!isDark ? 'text-black font-black' : 'text-gray-500'}`}>
+        <Sun size={14} strokeWidth={3} />
+        <span className="text-[10px] uppercase tracking-widest">Light</span>
+      </div>
+
+      {/* Label: Dark */}
+      <div className={`relative z-10 flex w-24 items-center justify-center gap-2 px-3 py-1.5 transition-colors duration-500 ${isDark ? 'text-black font-black' : 'text-gray-400'}`}>
+        <Moon size={14} strokeWidth={3} />
+        <span className="text-[10px] uppercase tracking-widest">Dark</span>
       </div>
     </button>
   );

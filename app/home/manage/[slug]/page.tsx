@@ -7,10 +7,11 @@ import { Settings } from 'lucide-react';
 import LiveLeaderboard from '@/components/layout/StatsCard';
 import ContestantManager from '@/components/layout/ContestManager';
 import CodeManager from '@/components/layout/CodeManager';
+import { VoteCode } from '@/utils/supabase/db';
 
 export default function PollDashboard() {
   const { slug } = useParams(); // Gets the ID from the URL
-  const { allPolls, loading } = useApp();
+  const { allPolls, loading, allCodes } = useApp();
   const [activeTab, setActiveTab] = React.useState<
     'contestants' | 'codes' | 'results'
   >('contestants');

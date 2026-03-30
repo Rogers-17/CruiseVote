@@ -54,7 +54,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-4">
-        <ThemeToggle />
         {isLoggedIn ? (
           <>
             {mounted ? (

@@ -124,7 +124,7 @@ const Footer = () => {
         </div>
 
         {/* Newsletter / Stay Updated Section */}
-        <div className="mb-12 rounded-2xl border bg-white/5 p-8">
+        {/* <div className="mb-12 rounded-2xl border bg-white/5 p-8">
           <div className="mx-auto max-w-2xl text-center">
             <h3 className="mb-2 text-xl font-black uppercase italic">
               Don't Miss the Wave
@@ -143,7 +143,7 @@ const Footer = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Section */}
         <div className="flex flex-col items-center justify-between gap-6 border-t pt-8 lg:flex-row">

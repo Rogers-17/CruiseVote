@@ -2,7 +2,7 @@
 
 import { useApp } from '@/context/AppContext';
 import Link from 'next/link';
-import { Calendar, Activity, Vote, ChevronRight, Lock } from 'lucide-react';
+import { Calendar, Vote, ChevronRight, Lock } from 'lucide-react';
 
 export default function VotePollSelection() {
   const { allPolls, loading } = useApp();
@@ -41,7 +41,7 @@ export default function VotePollSelection() {
             className={`group relative ${!poll.is_active ? 'cursor-not-allowed opacity-60' : ''}`}
           >
             <div
-              className={`h-full border bg-white/5 ${poll.is_active ? 'group-hover:border-brand-yellow/50 group-hover:bg-white/10' : 'border-white/5'} rounded-[2rem] p-8 shadow-2xl transition-all duration-300`}
+              className={`h-full border bg-white/5 ${poll.is_active ? 'group-hover:border-brand-yellow/50 group-hover:bg-white/10' : 'border-white/5'} rounded-4xl p-8 shadow-2xl transition-all duration-300`}
             >
               <div className="mb-6 flex items-start justify-between">
                 <div
@@ -95,7 +95,7 @@ export default function VotePollSelection() {
 
             {/* Background Glow Effect on Hover */}
             {poll.is_active && (
-              <div className="from-brand-yellow absolute -inset-1 rounded-[2rem] bg-gradient-to-r to-yellow-600 opacity-0 blur transition duration-500 group-hover:opacity-10" />
+              <div className="from-brand-yellow absolute -inset-1 rounded-4xl bg-linear-to-r to-yellow-600 opacity-0 blur transition duration-500 group-hover:opacity-10" />
             )}
           </Link>
         ))}
