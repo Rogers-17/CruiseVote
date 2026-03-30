@@ -72,14 +72,11 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                 >
                   <DropdownMenuLabel className="space-y-1">
                     <p className="text-sm leading-none font-medium">
-                      {user.user_metadata.display_name || 'User'}
+                      {user.user_metadata.display_name || 'Admin User'}
                     </p>
                     <p className="text-xs text-gray-400">{user.email}</p>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-gray-800" />
-                  <DropdownMenuItem className="cursor-pointer hover:bg-gray-900">
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer hover:bg-gray-900">
                     <Link href="/home/settings">Settings</Link>
                   </DropdownMenuItem>

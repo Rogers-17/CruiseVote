@@ -91,7 +91,11 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
             
             {isAdmin && (<button 
               className="flex w-full items-center gap-4 px-4 py-3 transition-all hover:bg-white/10 text-red-500"
-              onClick={() => {signOut(); closeSidebar();}}
+              onClick={() => {
+                alert('Are you sure you want to log out?');
+                signOut(); 
+                closeSidebar();
+              }}
             >
               <LogOut size={20} />
               <span>Logout</span>
