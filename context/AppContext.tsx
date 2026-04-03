@@ -2,7 +2,7 @@
 
 import { ContestantPayload, GetContestant } from '@/lib/type';
 import * as db from '@/utils/supabase/db';
-import { supabase } from '@/utils/supabase/client'; // Ensure this is imported
+import { supabase } from '@/utils/supabase/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as React from 'react';
 
@@ -151,7 +151,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     queryKey: QK.voteCodes,
     queryFn: () => db.getAllCodes(),
     enabled: healthQ.isSuccess,
-  })
+  });
 
   // ----------- Invalidation Helpers -----------
   const invalidateAll = React.useCallback(() => {
@@ -195,8 +195,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const generateCodes = (prefix: string, count: number) =>
     generateCodesMut.mutateAsync({ prefix, count });
-
-  // const handleGenerate = () => {};
 
   return (
     <AppContext.Provider

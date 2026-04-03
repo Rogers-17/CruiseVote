@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
 import { useApp } from '@/context/AppContext';
-import { Trophy, TrendingUp } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import LivePulseCard from './LivePulseCard';
 
 export default function LiveLeaderboard({ pollId }: { pollId: string }) {

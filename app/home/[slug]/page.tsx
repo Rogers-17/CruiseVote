@@ -4,14 +4,12 @@ import * as React from 'react';
 import { useParams } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import LiveLeaderboard from '@/components/layout/StatsCard';
-import ContestantManager from '@/components/layout/ContestManager';
 import VoteManager from '@/components/layout/VoteManager';
 
 export default function PollDashboard() {
   const { slug } = useParams(); // Gets the ID from the URL
   const { allPolls, loading } = useApp();
-  const [activeTab, setActiveTab] = React.useState<'vote' | 'results'
-  >('vote');
+  const [activeTab, setActiveTab] = React.useState<'vote' | 'results'>('vote');
 
   // Find the specific poll from the global list
   const currentPoll = allPolls.find((p: any) => p.slug === slug);

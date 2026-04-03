@@ -28,7 +28,7 @@ export default function VoteModal({ girl, pollId, onClose, onSuccess }: any) {
       <div className="animate-in slide-in-from-bottom-20 w-full max-w-md rounded-[2.5rem] border border-white/10 bg-[#161616] p-8 duration-300">
         <div className="mb-8 flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 overflow-hidden rounded-2xl border border-[--color-brand-yellow]/30">
+            <div className="border-brand-yellow/30 h-16 w-16 overflow-hidden rounded-2xl border">
               <img
                 src={girl.photo_url}
                 className="h-full w-full object-cover"

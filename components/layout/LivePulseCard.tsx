@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import { TrendingUp, Zap } from 'lucide-react';
 
 export default function LivePulseCard({ totalVotes }: { totalVotes: number }) {
-  const [isPulsing, setIsPulsing] = useState(false);
+  const [isPulsing, setIsPulsing] = React.useState(false);
 
   // Trigger the pulse animation whenever totalVotes changes
-  useEffect(() => {
+  React.useEffect(() => {
     if (totalVotes > 0) {
       setIsPulsing(true);
       const timer = setTimeout(() => setIsPulsing(false), 1000);

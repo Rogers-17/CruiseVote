@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Vote, PlusCircle, HomeIcon, UserCogIcon, Settings, LogOut } from 'lucide-react';
+import {
+  Vote,
+  PlusCircle,
+  HomeIcon,
+  UserCogIcon,
+  Settings,
+  LogOut,
+} from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useAuth } from '@/hooks/useAuth';
 import * as React from 'react';
@@ -22,20 +29,49 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
   const pathName = usePathname();
   const { isAdmin } = useApp();
-    const { signOut } = useAuth();
+  const { signOut } = useAuth();
 
   const topNavItems: SideBarItemTypes[] = [
-    { id: 1, name: 'Home', path: '/home', icon: <HomeIcon size={20} />, isAdmin: false },
-    { id: 4, name: 'Vote', path: '/home/vote', icon: <Vote size={20} />, isAdmin: false },
-    { id: 3, name: 'Create Poll', path: '/home/create-poll', icon: <PlusCircle size={20} />, isAdmin: true },
-    { id: 2, name: 'Manage', path: '/home/manage', icon: <UserCogIcon size={20} />, isAdmin: true },
+    {
+      id: 1,
+      name: 'Home',
+      path: '/home',
+      icon: <HomeIcon size={20} />,
+      isAdmin: false,
+    },
+    {
+      id: 4,
+      name: 'Vote',
+      path: '/home/vote',
+      icon: <Vote size={20} />,
+      isAdmin: false,
+    },
+    {
+      id: 3,
+      name: 'Create Poll',
+      path: '/home/create-poll',
+      icon: <PlusCircle size={20} />,
+      isAdmin: true,
+    },
+    {
+      id: 2,
+      name: 'Manage',
+      path: '/home/manage',
+      icon: <UserCogIcon size={20} />,
+      isAdmin: true,
+    },
   ];
 
   const bottomNavItems: SideBarItemTypes[] = [
-    { id: 5, name: 'Settings', path: '/home/settings', icon: <Settings size={20} />, isAdmin: false },
+    {
+      id: 5,
+      name: 'Settings',
+      path: '/home/settings',
+      icon: <Settings size={20} />,
+      isAdmin: false,
+    },
   ];
 
-  // Single source of truth for "Active" logic
   const checkActive = (itemPath: string) => {
     if (itemPath === '/home') return pathName === '/home';
     return pathName.startsWith(itemPath);
@@ -48,8 +84,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
-        <div className="flex h-full flex-col justify-between p-4 text-md font-medium">
-          
+        <div className="text-md flex h-full flex-col justify-between p-4 font-medium">
           {/* Top Section */}
           <nav className="space-y-1">
             {topNavItems
@@ -59,7 +94,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
                   <div
                     className={`flex items-center gap-4 px-4 py-3 transition-all ${
                       checkActive(item.path)
-                        ? 'bg-brand-yellow rounded-xl text-black' 
+                        ? 'bg-brand-yellow rounded-xl text-black'
                         : 'hover:bg-white/10'
                     }`}
                   >
@@ -71,7 +106,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
           </nav>
 
           {/* Bottom Section */}
-          <div className="space-y-1 mb-5">
+          <div className="mb-5 space-y-1">
             {bottomNavItems
               .filter((item) => !item.isAdmin || isAdmin)
               .map((item) => (
@@ -79,7 +114,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
                   <div
                     className={`flex items-center gap-4 px-4 py-3 transition-all ${
                       checkActive(item.path)
-                        ? 'bg-brand-yellow rounded-xl text-black' 
+                        ? 'bg-brand-yellow rounded-xl text-black'
                         : 'hover:bg-white/10'
                     }`}
                   >
@@ -88,20 +123,21 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
                   </div>
                 </Link>
               ))}
-            
-            {isAdmin && (<button 
-              className="flex w-full items-center gap-4 px-4 py-3 transition-all hover:bg-white/10 text-red-500"
-              onClick={() => {
-                alert('Are you sure you want to log out?');
-                signOut(); 
-                closeSidebar();
-              }}
-            >
-              <LogOut size={20} />
-              <span>Logout</span>
-            </button>)}
+
+            {isAdmin && (
+              <button
+                className="flex w-full items-center gap-4 px-4 py-3 text-red-500 transition-all hover:bg-white/10"
+                onClick={() => {
+                  alert('Are you sure you want to log out?');
+                  signOut();
+                  closeSidebar();
+                }}
+              >
+                <LogOut size={20} />
+                <span>Logout</span>
+              </button>
+            )}
           </div>
-          
         </div>
       </aside>
 

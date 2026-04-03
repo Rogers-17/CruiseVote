@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "test:load": "node --experimental-strip-types --env-file=.env stress-test.ts"
   },
   "dependencies": {
     "@fingerprint/react": "^3.0.0",

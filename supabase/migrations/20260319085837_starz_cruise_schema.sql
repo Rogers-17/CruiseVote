@@ -1,20 +1,16 @@
--- CLEAR EVERYTHING (Optional but safer to do manually in SQL Editor if tables exist)
--- drop table if exists votes, vote_codes, contestants, polls cascade;
 -- 1. Polls Table
 create table polls (
     id uuid primary key default gen_random_uuid(),
     title text not null,
-    slug text unique not null,
-    -- For clean URLs
+    slug text unique not null -- For clean URL,
     description text,
     is_active boolean default true,
     start_date timestamp with time zone,
     end_date timestamp with time zone,
     created_at timestamp with time zone default now(),
-    -- Ensures the poll can't end before it starts
-    constraint valid_dates check (end_date > start_date)
+    constraint valid_dates check (end_date > start_date) -- Ensures the poll can't end before it starts
 );
--- 2. Contestants (Linked to Poll)
+-- 2. Contestants
 create table contestants (
     id uuid primary key default gen_random_uuid(),
     poll_id uuid references polls(id) on delete cascade,
@@ -25,18 +21,17 @@ create table contestants (
     vote_count int default 0,
     created_at timestamp with time zone default now()
 );
--- 3. Vote Codes (With Status Tracking)
+-- 3. Vote Codes
 create table vote_codes (
     id uuid primary key default gen_random_uuid(),
     poll_id uuid references polls(id) on delete cascade,
     code text not null,
-    status text default 'available',
-    -- 'available' or 'voted'
+    status text default 'available' -- 'available' or 'voted',
     is_used boolean default false,
     used_at timestamp with time zone,
     unique(poll_id, code)
 );
--- 4. Votes Table (The Audit Trail)
+-- 4. Votes Table
 create table votes (
     id uuid primary key default gen_random_uuid(),
     poll_id uuid references polls(id) on delete cascade,

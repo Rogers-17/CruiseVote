@@ -1,6 +1,5 @@
-import  * as db from '../utils/supabase/db';
+import * as db from '../utils/supabase/db';
 describe('db helpers', () => {
-
   describe('db helpers', () => {
     it('healthCheck throws on error', async () => {
       jest

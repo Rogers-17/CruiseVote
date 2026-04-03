@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaBell } from 'react-icons/fa';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -13,7 +12,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuthUser } from '@/hooks/useAuthUser';
 import { useAuth } from '@/hooks/useAuth';
-import ThemeToggle from './ThemeToggle';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -60,7 +58,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="outline-none">
-                    <div className="bg-brand-yellow flex h-10 w-10 items-center justify-center rounded-full text-lg font-medium text-black">
+                    <div className="bg-brand-yellow flex h-10 w-10 items-center justify-center rounded-full text-lg font-medium">
                       {user.email.charAt(0).toUpperCase()}
                     </div>
                   </button>

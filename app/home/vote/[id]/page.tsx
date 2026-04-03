@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useParams } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
-import { Search, CheckCircle2} from 'lucide-react';
+import { Search, CheckCircle2 } from 'lucide-react';
 import VoteModal from '@/components/layout/VoteModal';
 
 export default function PublicVotePage() {
