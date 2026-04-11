@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuthUser } from '@/hooks/useAuthUser';
 import { useAuth } from '@/hooks/useAuth';
+import Swal from 'sweetalert2';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -26,6 +27,29 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
 
   const { user, isLoggedIn } = useAuthUser();
   const { signOut } = useAuth();
+
+  const handleLogout = () => {
+      Swal.fire({
+        title: 'Are you sure you want to log out?',
+        text: "You will be logged out and need to log in again to access your account.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, log me out out!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          signOut();
+          Swal.fire({
+          title: 'Logged Out',
+          text: 'You have been logged out successfully.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        }
+      });
+    }
 
   return (
     <nav className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b px-6 backdrop-blur-2xl">
@@ -80,7 +104,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-gray-800" />
                   <DropdownMenuItem className="cursor-pointer text-red-400 hover:bg-red-500/10">
-                    <button onClick={signOut}>Log out</button>
+                    <button onClick={() => handleLogout()}>Log out</button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

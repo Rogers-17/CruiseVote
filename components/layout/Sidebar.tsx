@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useAuth } from '@/hooks/useAuth';
+import Swal from 'sweetalert2';
 import * as React from 'react';
 
 interface SideBarItemTypes {
@@ -77,6 +78,31 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
     return pathName.startsWith(itemPath);
   };
 
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure you want to log out?',
+      text: "You will be logged out and need to log in again to access your account.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, log me out out!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut();
+        closeSidebar();
+
+        Swal.fire({
+        title: 'Logged Out',
+        text: 'You have been logged out successfully.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      }
+    });
+  }
+
   return (
     <>
       <aside
@@ -127,11 +153,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
             {isAdmin && (
               <button
                 className="flex w-full items-center gap-4 px-4 py-3 text-red-500 transition-all hover:bg-white/10"
-                onClick={() => {
-                  alert('Are you sure you want to log out?');
-                  signOut();
-                  closeSidebar();
-                }}
+                onClick={() => handleLogout()}
               >
                 <LogOut size={20} />
                 <span>Logout</span>
