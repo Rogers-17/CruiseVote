@@ -89,7 +89,14 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             )}
           </>
         ) : (
-          <div className="flex gap-4"></div>
+          <div className="flex gap-4">
+            <Link
+              href="/auth"
+              className="bg-brand-yellow-primary hover:bg-brand-yellow rounded-lg p-3 text-sm font-semibold text-black"
+            >
+              Login
+            </Link>
+          </div>
         )}
       </div>
     </nav>
