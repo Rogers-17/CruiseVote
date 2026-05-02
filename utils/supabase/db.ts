@@ -123,7 +123,7 @@ export async function generateFormattedCodes(
 export async function exportCodesAsCSV(pollId: string) {
   const { data, error } = await supabase
     .from('vote_codes')
-    .select('code, status, used_at')
+    .select('code')
     .eq('poll_id', pollId);
   if (error) throw new Error('Failed to fetch codes');
 
