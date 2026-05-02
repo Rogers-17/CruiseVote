@@ -127,9 +127,9 @@ export async function exportCodesAsCSV(pollId: string) {
     .eq('poll_id', pollId);
   if (error) throw new Error('Failed to fetch codes');
 
-  const header = 'code,status,used_at';
+  const header = 'code';
   const rows = data.map(
-    (row: any) => `${row.code},${row.status},${row.used_at || ''}`,
+    (row: any) => `${row.code}`,
   );
   return [header, ...rows].join('\n');
 }
