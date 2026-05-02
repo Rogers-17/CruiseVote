@@ -45,7 +45,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
       name: 'Vote',
       path: '/home/vote',
       icon: <Vote size={20} />,
-      isAdmin: false,
+      isAdmin: true,
     },
     {
       id: 3,

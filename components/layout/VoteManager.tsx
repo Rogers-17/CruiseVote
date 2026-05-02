@@ -158,7 +158,7 @@ export default function PublicVotePage({ pollId }: { pollId: string }) {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 alt={girl.name}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent opacity-80" />
               <div className="absolute bottom-0 w-full p-4">
                 <p className="text-xs font-black tracking-tight text-white uppercase md:text-lg">
                   {girl.name}
